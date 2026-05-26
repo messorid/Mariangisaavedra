@@ -24,6 +24,9 @@
 .DS_Store
 *.pem
 
+# correos recolectados (no versionar datos personales)
+/data
+
 # debug
 npm-debug.log*
 yarn-debug.log*
