@@ -1,50 +1,95 @@
-import { nav, site } from "@/app/lib/content";
+import Link from "next/link";
+import { nav, site, waLink } from "@/app/lib/content";
+import Monogram from "./Monogram";
+import { InstagramIcon, MailIcon, PhoneIcon, WhatsAppIcon } from "./Icons";
 
 export default function Footer() {
   return (
-    <footer className="px-5 pb-10 pt-8 md:px-10">
-      <div className="mx-auto max-w-7xl rule pt-10">
-        <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
-          <div className="max-w-sm">
-            <p className="font-display text-2xl tracking-tight">
-              Mariangi <span className="italic text-clay">Saavedra</span>
-            </p>
-            <p className="mt-3 text-pretty leading-relaxed text-espresso/60">
-              {site.tagline}
-            </p>
-          </div>
+    <footer className="relative overflow-hidden bg-ink text-white">
+      <Monogram
+        className="pointer-events-none absolute -right-10 -top-16 h-[380px] w-auto text-white/[0.04]"
+        strokeWidth={14}
+      />
 
-          <nav className="flex flex-wrap gap-x-8 gap-y-2 text-sm">
-            {nav.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="text-espresso/60 transition-colors hover:text-clay"
-              >
-                {item.label}
-              </a>
-            ))}
-          </nav>
+      <div className="relative mx-auto max-w-7xl px-5 py-16 md:px-10 md:py-20">
+        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
+          <div>
+            <p className="eyebrow text-brand-soft">¿Listos para conectar?</p>
+            <p className="display mt-3 text-4xl text-white md:text-5xl">
+              Mariangi
+              <br />
+              <span className="text-brand-soft">Saavedra</span>
+            </p>
+            <p className="mt-4 max-w-sm text-white/70">{site.tagline}</p>
 
-          <div className="text-sm">
             <a
-              href={site.instagram}
+              href={waLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-espresso/60 transition-colors hover:text-clay"
+              className="mt-7 inline-flex cursor-pointer items-center gap-2 rounded-full bg-brand-deep px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-ink-2"
             >
-              {site.instagramHandle}
+              <WhatsAppIcon className="h-[18px] w-[18px]" />
+              Escríbeme por WhatsApp
             </a>
-            <p className="mt-1 text-espresso/60">{site.email}</p>
+          </div>
+
+          <nav aria-label="Pie de página">
+            <p className="eyebrow text-white/50">Navegación</p>
+            <ul className="mt-4 space-y-2.5 text-sm">
+              {nav.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="cursor-pointer text-white/75 transition-colors duration-200 hover:text-brand-soft"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div>
+            <p className="eyebrow text-white/50">Contacto</p>
+            <ul className="mt-4 space-y-3.5 text-sm">
+              <li>
+                <a
+                  href={`tel:+${site.whatsappNumber}`}
+                  className="flex cursor-pointer items-center gap-2.5 text-white/75 transition-colors duration-200 hover:text-brand-soft"
+                >
+                  <PhoneIcon className="h-[18px] w-[18px] shrink-0" />
+                  {site.whatsappDisplay}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`mailto:${site.email}`}
+                  className="flex cursor-pointer items-center gap-2.5 break-all text-white/75 transition-colors duration-200 hover:text-brand-soft"
+                >
+                  <MailIcon className="h-[18px] w-[18px] shrink-0" />
+                  {site.email}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={site.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex cursor-pointer items-center gap-2.5 text-white/75 transition-colors duration-200 hover:text-brand-soft"
+                >
+                  <InstagramIcon className="h-[18px] w-[18px] shrink-0" />
+                  {site.instagramHandle}
+                </a>
+              </li>
+            </ul>
+            <p className="mt-4 text-sm text-white/50">{site.location}</p>
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-2 text-xs text-mocha sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {new Date().getFullYear()} {site.name} · {site.role}
-          </p>
-          <p>Sitio demo · {site.location}</p>
-        </div>
+        <p className="mt-14 border-t border-white/10 pt-6 text-xs text-white/60">
+          © {new Date().getFullYear()} {site.name}. Todos los derechos
+          reservados.
+        </p>
       </div>
     </footer>
   );

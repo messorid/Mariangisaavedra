@@ -1,43 +1,57 @@
 import type { Metadata } from "next";
-import { Fraunces, Geist } from "next/font/google";
+import { Montserrat, Oswald, Tenor_Sans } from "next/font/google";
 import "./globals.css";
+import Nav from "./components/Nav";
+import Footer from "./components/Footer";
+import { site } from "./lib/content";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
   display: "swap",
 });
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const oswald = Oswald({
+  variable: "--font-oswald",
   subsets: ["latin"],
-  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const tenor = Tenor_Sans({
+  variable: "--font-tenor",
+  weight: "400",
+  subsets: ["latin"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mariangisaavedra.com"),
   title: {
-    default: "Mariangi Saavedra — Voz de Marca & Coach de Oratoria",
-    template: "%s · Mariangi Saavedra",
+    default: `${site.name} — Host, Locutora, Imagen de Marcas y Coach de Oratoria`,
+    template: `%s · ${site.name}`,
   },
   description:
-    "Que tu voz cuente historias, inspire y conecte. Voz de marca y formación en oratoria para niños, adolescentes y profesionales en Venezuela.",
+    "Host de eventos, locutora e imagen de marcas en Venezuela. Formación en oratoria y comunicación para empresas y equipos. 13 años de trayectoria.",
   keywords: [
-    "oratoria",
-    "voz de marca",
-    "comunicación",
     "Mariangi Saavedra",
-    "cursos de oratoria Venezuela",
-    "plan vacacional oratoria",
+    "host de eventos Venezuela",
+    "locutora Barinas",
+    "imagen de marca",
+    "coach de oratoria",
+    "conferencista Venezuela",
+    "maestra de ceremonias",
+    "capacitación empresarial oratoria",
   ],
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Mariangi Saavedra — Voz de Marca & Coach de Oratoria",
-    description:
-      "Que tu voz cuente historias, inspire y conecte. Formación en oratoria y comunicación con seguridad, empatía y carisma.",
-    locale: "es_VE",
     type: "website",
+    locale: "es_VE",
+    siteName: site.name,
+    title: `${site.name} — ${site.tagline}`,
+    description:
+      "Voz e imagen para marcas · Formación en oratoria y desarrollo humano. Venezuela.",
   },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -47,11 +61,15 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="es"
-      className={`${geistSans.variable} ${fraunces.variable} h-full antialiased`}
+      lang="es-VE"
+      className={`${montserrat.variable} ${oswald.variable} ${tenor.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-cream text-espresso flex flex-col overflow-x-hidden">
-        {children}
+      <body className="bg-paper text-ink flex min-h-full flex-col overflow-x-hidden">
+        <Nav />
+        <main id="contenido" className="flex-1">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );

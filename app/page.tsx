@@ -1,33 +1,20 @@
-import Nav from "./components/Nav";
 import Hero from "./components/Hero";
 import Marquee from "./components/Marquee";
-import About from "./components/About";
-import Course from "./components/Course";
-import Benefits from "./components/Benefits";
-import Quote from "./components/Quote";
-import Services from "./components/Services";
-import Subscribe from "./components/Subscribe";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
+import Manifiesto from "./components/Manifiesto";
+import Facetas from "./components/Facetas";
+import CtaBanner from "./components/CtaBanner";
 
 export default function Home() {
   return (
     <>
-      <Nav />
-      <main>
-        <Hero />
-        <div className="rule mt-6">
-          <Marquee />
-        </div>
-        <About />
-        <Course />
-        <Benefits />
-        <Quote />
-        <Services />
-        <Subscribe />
-        <Contact />
-      </main>
-      <Footer />
+      <Hero />
+      <Marquee />
+      <Manifiesto />
+      <Facetas />
+      <CtaBanner
+        titulo="Hablemos de tu próximo proyecto"
+        texto="Campañas, eventos, locución o formación para tu equipo. Escríbeme y lo conversamos."
+      />
     </>
   );
 }

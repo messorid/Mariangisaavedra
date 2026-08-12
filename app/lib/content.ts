@@ -1,130 +1,764 @@
 /**
- * Contenido centralizado de la landing.
- * DEMO: los datos de contacto son de ejemplo — reemplázalos por los reales.
+ * Contenido centralizado del sitio.
+ *
+ * FUENTES (todo lo de aquí sale de documentos reales, nada inventado):
+ *  - public/MEDIA KIT MS 2026 .pdf      → faceta "Marca personal"
+ *  - public/VISUAL CURRICULUM.pdf       → trayectoria y formación
+ *  - public/WEB Mariangisaavedra.com.docx → arquitectura de las dos facetas
+ *
+ * Los campos marcados con TODO necesitan confirmación de Mariangi.
  */
+
+/* ─────────────────────────────  Identidad  ───────────────────────────── */
 
 export const site = {
   name: "Mariangi Saavedra",
-  role: "Voz de Marca · Coach de Oratoria",
-  location: "Venezuela",
-  tagline: "Que tu voz cuente historias, inspire y conecte.",
+  tagline: "Exprésate a toda voz y deja tu huella",
+  roles: ["Host", "Locutora", "Imagen de Marcas", "Coach de Oratoria"],
+  yearsOfExperience: 13,
+  location: "Barinas, Venezuela",
   instagram: "https://instagram.com/mariangisaavedra",
   instagramHandle: "@mariangisaavedra",
-  email: "hola@mariangisaavedra.com",
-  // wa.me requiere el número en formato internacional sin signos.
+  email: "mariangisaavedra@gmail.com",
+  /** wa.me exige el número internacional sin signos ni espacios. */
   whatsappNumber: "584149544415",
-  whatsappDisplay: "+58 414-954 4415",
+  whatsappDisplay: "0414-9544415",
 };
 
-/** Saludo automático por defecto que se pre-rellena al abrir WhatsApp. */
 export const waGreeting =
-  "¡Hola Mariangi! 👋 Vi tu página y me gustaría recibir más información.";
+  "¡Hola Mariangi! Vi tu página web y me gustaría recibir más información.";
 
 export const waLink = (message: string = waGreeting) =>
   `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`;
 
+/* ──────────────────────────────  Navegación  ─────────────────────────── */
+
 export const nav = [
-  { label: "Inicio", href: "#inicio" },
-  { label: "Sobre mí", href: "#sobre" },
-  { label: "Plan vacacional", href: "#curso" },
-  { label: "Servicios", href: "#servicios" },
-  { label: "Contacto", href: "#contacto" },
+  { label: "Para tu marca", href: "/marcas" },
+  { label: "Formación", href: "/formacion" },
+  { label: "Sobre mí", href: "/sobre-mi" },
+  { label: "Trabajos", href: "/trabajos" },
+  { label: "Contacto", href: "/contacto" },
 ];
 
-export const marqueeWords = [
-  "Oratoria",
-  "Voz de marca",
-  "Comunicación",
-  "Carisma",
-  "Seguridad",
-  "Conexión",
-  "Storytelling",
-  "Presencia",
+/* ────────────────────  Las dos facetas (núcleo del sitio)  ───────────── */
+
+export const facetas = [
+  {
+    slug: "marcas",
+    href: "/marcas",
+    numero: "01",
+    kicker: "Para empresas y marcas",
+    titulo: "Marca personal",
+    subtitulo: "Voz e imagen que tu marca necesita",
+    texto:
+      "Como Voz e Imagen de Marcas me convierto en el rostro y el sonido que transmite confianza, profesionalismo y cercanía a tu público objetivo.",
+    bullets: [
+      "Campañas e imagen de marca",
+      "Host y maestra de ceremonias",
+      "Locución comercial y radio",
+    ],
+    cta: "Ver planes y métricas",
+  },
+  {
+    slug: "formacion",
+    href: "/formacion",
+    numero: "02",
+    kicker: "Para equipos y personas",
+    titulo: "Oratoria y formación",
+    subtitulo: "Comunicación que transforma resultados",
+    texto:
+      "Fusiono técnicas de locución con herramientas de Coaching y Programación Neurolingüística para desarrollar mensajes de alto impacto en el ámbito corporativo.",
+    bullets: [
+      "Programas de oratoria",
+      "Conferencias y charlas",
+      "Formación corporativa in-company",
+    ],
+    cta: "Ver programas",
+  },
 ];
 
-export const pillars = [
-  {
-    title: "Seguridad",
-    text: "Hablar en público sin miedo: postura, respiración y control del nervio.",
-  },
-  {
-    title: "Empatía",
-    text: "Conectar con quien escucha, leer al público y comunicar desde el corazón.",
-  },
-  {
-    title: "Carisma",
-    text: "Una voz con presencia: ritmo, intención y la chispa que hace memorable un mensaje.",
-  },
+/* ──────────────────────  Manifiesto / ¿Quién soy?  ───────────────────── */
+
+export const manifiesto = {
+  eyebrow: "¿Quién soy?",
+  destacado:
+    "Creo firmemente en el poder de la comunicación y en la capacidad de un mensaje que, entregado con criterio y convicción, puede transformar cualquier circunstancia.",
+  parrafos: [
+    "Soy Mariangi Saavedra, profesional de la Voz, una Comunicadora apasionada. Mi misión es sencilla: motivar, enseñar y compartir mi admiración por el arte de comunicarnos, brindando herramientas que fortalecen las conexiones en todos los ámbitos.",
+    "Estoy convencida de que podemos transformar el mundo desde nuestro metro cuadrado, haciendo uso de nuestra voz y presencia para dejar huella.",
+    "Esta convicción no solo guía mis talleres de oratoria, donde mis clientes logran resultados impactantes, sino que es la misma energía auténtica que inyecto en cada proyecto de marca.",
+  ],
+};
+
+/* ────────────────────────  Credibilidad (home)  ──────────────────────── */
+
+export const credenciales = [
+  { valor: "13", sufijo: " años", label: "De trayectoria profesional" },
+  { valor: "200", prefijo: "+", label: "Profesionales capacitados" },
+  { valor: "4", label: "Emisoras de radio" },
+  { valor: "14,68", sufijo: "%", label: "Tasa de interacción" },
 ];
 
-export const course = {
-  eyebrow: "Plan vacacional 2024",
-  title: "Oratoria para Niños y Adolescentes",
-  lead: "Estas vacaciones, que tu voz cuente historias, inspire y conecte.",
+/* ────────────────────  FACETA 1 · Valor para la marca  ───────────────── */
+
+export const valorParaMarca = {
+  eyebrow: "Versatilidad y conexión genuina",
+  titulo: "Mi valor para tu marca",
   intro:
-    "¿Tu hijo tiene mucho que decir, pero no siempre sabe cómo expresarlo? En nuestro plan vacacional aprenderá a comunicarse con seguridad, empatía y carisma… ¡mientras se divierte!",
-  audience:
-    "Diseñado especialmente para niños y adolescentes mayores de 9 años, en un ambiente seguro, motivador y lleno de energía positiva.",
-  details: [
-    { label: "Fechas", value: "30 y 31 de julio", icon: "calendar" },
-    { label: "Horario", value: "9:00 AM – 12:00 PM", icon: "clock" },
-    { label: "Edad", value: "Mayores de 9 años", icon: "users" },
+    "Mi trayectoria como Locutora, Presentadora de Eventos y Coach de Oratoria me ha brindado una voz y presencia versátiles, capaces de resonar con audiencias diversas.",
+  pilares: [
     {
-      label: "Lugar",
-      value: "C.E. Toscana Plaza, Av. Adonay Parra · Academia USICA",
-      icon: "pin",
+      titulo: "Crear un impacto memorable",
+      texto:
+        "Como Voz e Imagen de Marcas me convierto en el rostro y el sonido que transmite confianza, profesionalismo y cercanía a tu público objetivo.",
+    },
+    {
+      titulo: "Aportar credibilidad",
+      texto:
+        "Mi experiencia como conferencista y profesora respalda mi habilidad para comunicar mensajes complejos de forma clara y persuasiva.",
+    },
+    {
+      titulo: "Garantizar resultados",
+      texto:
+        "La misma pasión que me permite sentirme en propósito con los logros de mis clientes, la dedico a asegurar que tu campaña alcance sus metas.",
     },
   ],
 };
 
-export const benefits = [
+/* ────────────────  FACETA 1 · Métricas de comunidad (IG)  ────────────── */
+
+export const metricas = {
+  periodo: "Últimos 30 días",
+  destacadas: [
+    { valor: "114.727", label: "Visualizaciones" },
+    { valor: "28.968", label: "Cuentas alcanzadas", delta: "+161,7%" },
+    { valor: "14,68%", label: "Tasa de interacción" },
+  ],
+  formatos: [
+    { label: "Historias", pct: 53.5 },
+    { label: "Publicaciones", pct: 27.0 },
+    { label: "Reels", pct: 19.5 },
+  ],
+  audiencia: [
+    { label: "Mujeres", pct: 58.7 },
+    { label: "Hombres", pct: 41.3 },
+  ],
+  edades: [
+    { label: "35-44", pct: 31.3 },
+    { label: "25-34", pct: 29.9 },
+    { label: "45-54", pct: 19.5 },
+    { label: "55-64", pct: 8.4 },
+  ],
+  paises: [
+    { label: "Venezuela", pct: 80.6 },
+    { label: "Estados Unidos", pct: 4.1 },
+    { label: "España", pct: 3.4 },
+    { label: "Colombia", pct: 2.3 },
+  ],
+  ciudades: [
+    { label: "Barinas", pct: 19.8 },
+    { label: "Caracas", pct: 17.5 },
+    { label: "Valencia", pct: 3.7 },
+    { label: "Barquisimeto", pct: 3.4 },
+  ],
+};
+
+/* ────────────────────────  Reels destacados  ─────────────────────────── */
+/** URLs reales extraídas de los hipervínculos de los PDF. */
+
+export const reels = [
+  { url: "https://www.instagram.com/reel/C4dTsJ5AmHZ/", nota: "" },
   {
-    n: "01",
-    title: "Expresarse con seguridad",
-    text: "Pierden el miedo escénico y aprenden a sostener la mirada y la voz.",
+    url: "https://www.instagram.com/reel/DO895ohEW6D/",
+    nota: "Más de 16.000 visualizaciones",
   },
   {
-    n: "02",
-    title: "Vocalizar y proyectar",
-    text: "Respiración, dicción y volumen para que cada palabra se entienda.",
+    url: "https://www.instagram.com/reel/DRnI848ge1D/",
+    nota: "Alcance de más de 18.000 cuentas y 37.000 reproducciones",
+  },
+  { url: "https://www.instagram.com/reel/DRumq6iEXrf/", nota: "" },
+  { url: "https://www.instagram.com/reel/DZFkOEiRZCV/", nota: "" },
+];
+
+/* ──────────────────────────  Planes (Media Kit)  ─────────────────────── */
+
+export const planes = [
+  {
+    nombre: "Plan Focus",
+    precio: 300,
+    incluye: ["1 Reel comercial", "Difusión en Historias"],
+    texto: "Ideal para impacto inmediato y presencia de marca.",
+    destacado: false,
   },
   {
-    n: "03",
-    title: "Contar historias",
-    text: "Estructura, inicio y cierre: storytelling adaptado a su edad.",
+    nombre: "Plan Evolución",
+    precio: 500,
+    incluye: ["2 Reels", "1 Carrete de fotos profesionales"],
+    texto:
+      "Diseñado para marcas que buscan estética y narrativa visual recurrente.",
+    destacado: false,
   },
   {
-    n: "04",
-    title: "Lenguaje corporal",
-    text: "Postura, gestos y presencia que acompañan el mensaje.",
-  },
-  {
-    n: "05",
-    title: "Trabajo en equipo",
-    text: "Dinámicas grupales que fortalecen la empatía y la escucha.",
-  },
-  {
-    n: "06",
-    title: "Confianza para la vida",
-    text: "Herramientas que usarán en el aula, en escena y donde quieran brillar.",
+    nombre: "Plan Embajadora PRO",
+    precio: 750,
+    incluye: [
+      "3 Reels",
+      "Set de fotos",
+      "Historias constantes (4 días/mes)",
+      "Voz comercial para otros medios",
+    ],
+    texto:
+      "Posicionamiento total y exclusividad como embajadora de la marca.",
+    destacado: true,
+    aviso:
+      "Este plan garantiza la exclusividad sectorial: durante la vigencia del contrato, Mariangi Saavedra no realizará alianzas ni publicidad con marcas de competencia directa. Esto asegura un vínculo de imagen único, coherente y de alta fidelidad para su marca.",
   },
 ];
 
-export const services = [
+export const serviciosSueltos = {
+  titulo: "También puedes cotizar por separado",
+  items: ["Stories", "Voice Over", "Host de Eventos"],
+};
+
+export const otrosServicios = [
   {
-    title: "Voz de marca",
-    text: "Doy voz a campañas, eventos y marcas que quieren sonar humanas y memorables.",
+    titulo: "Host de Eventos",
+    texto: "Conducción profesional para eventos corporativos y especiales.",
   },
   {
-    title: "Talleres de oratoria",
-    text: "Programas para niños, adolescentes y adultos que necesitan comunicar mejor.",
+    titulo: "Formación PRO",
+    texto:
+      "Eleva tu liderazgo con mentorías de Oratoria (personalizada, grupal o gerencial).",
   },
   {
-    title: "Coaching de comunicación",
-    text: "Acompañamiento 1:1 para presentaciones, pitch, medios y hablar en público.",
+    titulo: "Alcance 360",
+    texto:
+      "Publicidad de alto impacto en Radio, Pantallas LED y Locución profesional.",
+  },
+];
+
+export const testimonio = {
+  texto:
+    "No es solo la campaña, es la conexión y experiencia con el cliente. ¡Gran trabajo!",
+  autor: "Karina He",
+  cargo: "CEO, Mundo Plast",
+};
+
+/* ─────────────────────  FACETA 2 · Oratoria y formación  ─────────────── */
+
+export const modalidades = [
+  {
+    nombre: "Personalizada",
+    texto: "Uno a uno. Disponible como Oratoria Express o con acompañamiento.",
+    variantes: ["Oratoria Express", "Oratoria con acompañamiento"],
   },
   {
-    title: "Maestra de ceremonias",
-    text: "Conducción y locución de eventos con presencia, ritmo y elegancia.",
+    nombre: "Semi-personalizada",
+    texto: "Grupos reducidos de 3 participantes.",
+    variantes: [],
+  },
+  {
+    nombre: "Grupal abierto",
+    texto: "Talleres abiertos con inscripción individual.",
+    variantes: [],
+  },
+  {
+    nombre: "Empresarial / Corporativo",
+    texto: "Programas in-company diseñados a la medida de la organización.",
+    variantes: [],
+  },
+];
+
+/**
+ * Categorías de oratoria. Cada una tiene su propia página en /formacion/[slug].
+ *
+ * Los nombres de las 7 categorías salen textualmente del documento de Mariangi.
+ * El desarrollo de cada ficha (objetivo, beneficios, contenidos, resultados) es
+ * un BORRADOR redactado a partir de su metodología (Locución + Coaching + PNL)
+ * y de la estructura de "Portafolio comercial" que pide su propio documento.
+ * Debe validarlo antes de publicar: ver `borrador` en cada ficha.
+ */
+export type CategoriaOratoria = {
+  slug: string;
+  nombre: string;
+  texto: string;
+  eje: string;
+  objetivo: string;
+  publico: string;
+  beneficios: string[];
+  contenidos: string[];
+  resultados: string[];
+  borrador: boolean;
+};
+
+export const categoriasOratoria: CategoriaOratoria[] = [
+  {
+    slug: "oratoria-gerencial",
+    nombre: "Oratoria Gerencial",
+    texto: "Presencia y autoridad comunicacional para posiciones de liderazgo.",
+    eje: "Liderazgo",
+    objetivo:
+      "Desarrollar la presencia y la autoridad comunicacional que exige una posición de liderazgo, para que el mensaje del gerente se sostenga tanto en una reunión de directorio como frente a todo el equipo.",
+    publico:
+      "Gerentes, directores, jefes de área y profesionales en posiciones de decisión.",
+    beneficios: [
+      "Hablar con autoridad sin caer en la imposición",
+      "Sostener la calma y el mensaje bajo presión",
+      "Transmitir decisiones difíciles con claridad",
+      "Ganar credibilidad frente a pares y superiores",
+    ],
+    contenidos: [
+      "Presencia ejecutiva: postura, mirada y manejo del espacio",
+      "Voz de mando: proyección, ritmo y uso del silencio",
+      "Estructura de un mensaje directivo",
+      "Comunicación de decisiones y cambios organizacionales",
+      "Manejo de preguntas incómodas y objeciones internas",
+    ],
+    resultados: [
+      "Reuniones más cortas y con decisiones claras",
+      "Mayor adhesión del equipo a las directrices",
+      "Discurso institucional coherente hacia afuera",
+    ],
+    borrador: true,
+  },
+  {
+    slug: "oratoria-en-ventas",
+    nombre: "Oratoria en Ventas",
+    texto: "Discurso persuasivo orientado al cierre y a la relación comercial.",
+    eje: "Comercial",
+    objetivo:
+      "Convertir la conversación comercial en un proceso con estructura: abrir, generar interés, manejar la objeción y cerrar, sin sonar a guion memorizado.",
+    publico:
+      "Equipos comerciales, vendedores de piso, representantes y emprendedores que venden su propio servicio.",
+    beneficios: [
+      "Un discurso propio, no un guion recitado",
+      "Manejo de objeciones sin ponerse a la defensiva",
+      "Cierres más naturales y menos forzados",
+      "Confianza en la primera conversación con el cliente",
+    ],
+    contenidos: [
+      "Apertura y construcción de rapport",
+      "Detección de necesidad real mediante preguntas",
+      "Argumentación por beneficio, no por característica",
+      "Tratamiento de objeciones frecuentes",
+      "Técnicas de cierre y seguimiento",
+    ],
+    resultados: [
+      "Mayor tasa de conversión en la conversación comercial",
+      "Discurso homogéneo en todo el equipo de ventas",
+      "Menos abandono frente a la primera objeción",
+    ],
+    borrador: true,
+  },
+  {
+    slug: "oratoria-para-equipos",
+    nombre: "Oratoria para Trabajo en Equipos",
+    texto: "Comunicación interna, coordinación y claridad entre pares.",
+    eje: "Habilidades Blandas",
+    objetivo:
+      "Mejorar la calidad de la comunicación entre pares para que la información no se pierda, no se distorsione y no genere retrabajo.",
+    publico:
+      "Equipos de trabajo, departamentos que dependen unos de otros y grupos con alta rotación de información.",
+    beneficios: [
+      "Menos malentendidos y retrabajo",
+      "Reuniones internas más productivas",
+      "Petición y entrega de tareas con criterios claros",
+      "Mejor clima entre áreas",
+    ],
+    contenidos: [
+      "Escucha activa y verificación del mensaje",
+      "Cómo pedir y cómo entregar una tarea",
+      "Feedback entre pares sin desgaste",
+      "Comunicación en reuniones: aportar sin dispersar",
+      "Acuerdos y cierre de conversaciones",
+    ],
+    resultados: [
+      "Reducción de errores por mala comunicación",
+      "Coordinación más ágil entre áreas",
+      "Equipos que resuelven sin escalar todo al jefe",
+    ],
+    borrador: true,
+  },
+  {
+    slug: "comunicacion-asertiva",
+    nombre: "Comunicación Asertiva",
+    texto: "Decir lo necesario, en el momento justo y de la forma correcta.",
+    eje: "Habilidades Blandas",
+    objetivo:
+      "Dar herramientas para expresar lo que se necesita decir sin agresividad y sin sumisión, sosteniendo la relación y el objetivo al mismo tiempo.",
+    publico:
+      "Cualquier profesional o equipo que necesite conversaciones difíciles: liderazgo, atención al público, áreas en tensión.",
+    beneficios: [
+      "Decir que no sin romper la relación",
+      "Plantear un desacuerdo sin escalarlo",
+      "Poner límites con claridad y respeto",
+      "Bajar el desgaste emocional del día a día",
+    ],
+    contenidos: [
+      "Los tres estilos: pasivo, agresivo y asertivo",
+      "Lenguaje en primera persona",
+      "Cómo estructurar una conversación difícil",
+      "Manejo de la reacción emocional propia y ajena",
+      "Herramientas de PNL aplicadas a la conversación",
+    ],
+    resultados: [
+      "Conflictos que se resuelven antes de escalar",
+      "Mejor clima laboral",
+      "Conversaciones difíciles que dejan de postergarse",
+    ],
+    borrador: true,
+  },
+  {
+    slug: "atencion-al-cliente",
+    nombre: "Atención al Cliente",
+    texto: "Trato, tono y resolución en el punto de contacto con el cliente.",
+    eje: "Servicio",
+    objetivo:
+      "Estandarizar la calidad del trato en el punto de contacto, para que la experiencia del cliente no dependa de quién lo atienda ese día.",
+    publico:
+      "Personal de mostrador, recepción, caja, salón y cualquier rol en contacto directo con el cliente.",
+    beneficios: [
+      "Trato homogéneo en todo el personal",
+      "Manejo del cliente molesto sin perder el control",
+      "Lenguaje que resuelve en vez de excusarse",
+      "Percepción de marca más profesional",
+    ],
+    contenidos: [
+      "El primer contacto: los primeros 30 segundos",
+      "Tono, ritmo y vocabulario de servicio",
+      "Qué decir y qué no decir ante un reclamo",
+      "Recuperación del cliente molesto",
+      "Cierre de la atención y despedida",
+    ],
+    resultados: [
+      "Menos reclamos por trato",
+      "Experiencia consistente en todos los turnos",
+      "Personal con criterio para resolver en el momento",
+    ],
+    borrador: true,
+  },
+  {
+    slug: "atencion-al-cliente-call-center",
+    nombre: "Atención al Cliente para Call Center",
+    texto: "Locución telefónica, manejo de guion y control de la conversación.",
+    eje: "Servicio",
+    objetivo:
+      "Trabajar la voz como única herramienta disponible: sin gesto ni mirada, el tono y la dicción sostienen toda la experiencia del cliente.",
+    publico:
+      "Operadores de call center, soporte telefónico, televentas y cobranzas.",
+    beneficios: [
+      "Voz clara y sostenida durante toda la jornada",
+      "Guion que suena natural, no leído",
+      "Control de la llamada sin sonar cortante",
+      "Menos fatiga vocal",
+    ],
+    contenidos: [
+      "Técnica vocal aplicada al teléfono: respiración y dicción",
+      "Cuidado e higiene de la voz en jornadas largas",
+      "Cómo leer un guion sin que se note",
+      "Control del tiempo y del rumbo de la llamada",
+      "Manejo del cliente alterado por teléfono",
+    ],
+    resultados: [
+      "Llamadas más cortas y mejor resueltas",
+      "Mayor satisfacción en encuestas post-llamada",
+      "Menos ausentismo por afonía y fatiga vocal",
+    ],
+    borrador: true,
+  },
+  {
+    slug: "habilidades-blandas",
+    nombre: "Habilidades Blandas",
+    texto:
+      "Liderazgo, motivación, sentido de pertenencia y gestión de conflictos.",
+    eje: "Habilidades Blandas",
+    objetivo:
+      "Trabajar las competencias que sostienen el desempeño de un equipo más allá de la parte técnica: liderazgo, motivación, pertenencia y manejo de conflictos.",
+    publico:
+      "Organizaciones completas, equipos en proceso de cambio y programas de desarrollo interno.",
+    beneficios: [
+      "Líderes que movilizan en vez de supervisar",
+      "Equipos con sentido de pertenencia real",
+      "Conflictos que se gestionan, no se acumulan",
+      "Motivación sostenida en el tiempo",
+    ],
+    contenidos: [
+      "Liderazgo: del cargo a la influencia",
+      "Motivación al logro y foco en resultados",
+      "Sentido de pertenencia y cultura de equipo",
+      "Gestión de conflictos: detectar, abordar y cerrar",
+      "Comunicación como herramienta transversal",
+    ],
+    resultados: [
+      "Mejor clima organizacional",
+      "Menor rotación del personal",
+      "Equipos que sostienen el desempeño sin supervisión constante",
+    ],
+    borrador: true,
+  },
+];
+
+export const getCategoria = (slug: string) =>
+  categoriasOratoria.find((c) => c.slug === slug);
+
+/**
+ * TODO: el documento de Mariangi indica 10 conferencias.
+ * Estas 6 son las que aparecen nombradas en el Word y el Visual CV.
+ * Faltan 4 títulos por confirmar.
+ */
+export const conferencias = [
+  {
+    titulo: "El Líder de Tu Vida",
+    linea: "Liderazgo",
+    texto: "Liderazgo y empoderamiento femenino.",
+  },
+  {
+    titulo: "Celébrate",
+    linea: "Desarrollo personal",
+    texto: "Autorreconocimiento y amor propio.",
+  },
+  {
+    titulo: "Humanos de Alto Valor",
+    linea: "Desarrollo personal",
+    texto: "",
+  },
+  {
+    titulo: "Mujeres que Inspiran",
+    linea: "Liderazgo",
+    texto: "",
+  },
+  {
+    titulo: "Ética y Valores",
+    linea: "Valores",
+    texto: "",
+  },
+  {
+    titulo: "Conferencia para Madres",
+    linea: "Familia",
+    texto: "",
+  },
+];
+
+/**
+ * Programas corporativos. Los tres diseñados para COLVEN pertenecen
+ * al eje de Habilidades Blandas (así lo indica el documento).
+ */
+export const programasCorporativos = [
+  {
+    titulo: "Manejo de Conflictos y Comunicación Asertiva",
+    eje: "Habilidades Blandas",
+    objetivo:
+      "Dotar al equipo de herramientas para resolver desacuerdos sin desgaste y comunicar con claridad bajo presión.",
+  },
+  {
+    titulo: "Planificación Estratégica y Gestión del Tiempo",
+    eje: "Habilidades Blandas",
+    objetivo:
+      "Ordenar prioridades, definir foco y sostener la ejecución en el día a día del equipo.",
+  },
+  {
+    titulo: "Liderazgo y Motivación al Logro",
+    eje: "Habilidades Blandas",
+    objetivo:
+      "Formar líderes capaces de movilizar a su gente hacia resultados concretos.",
+  },
+];
+
+export const metodologia = {
+  titulo: "Locución + Coaching + PNL",
+  texto:
+    "Fusiono técnicas de locución profesional con herramientas de Coaching y Programación Neurolingüística. No es solo aprender a hablar en público: es construir un mensaje que la otra persona pueda recibir y recordar.",
+  pasos: [
+    {
+      n: "01",
+      titulo: "Diagnóstico",
+      texto: "Identificamos el punto de partida real de cada participante.",
+    },
+    {
+      n: "02",
+      titulo: "Técnica",
+      texto: "Respiración, dicción, proyección y dominio de escenario.",
+    },
+    {
+      n: "03",
+      titulo: "Mensaje",
+      texto: "Estructura, narrativa y adaptación al público objetivo.",
+    },
+    {
+      n: "04",
+      titulo: "Práctica",
+      texto: "Ejercicio en vivo con retroalimentación directa.",
+    },
+  ],
+};
+
+export const pruebaFormacion = [
+  { valor: "+200", label: "Profesionales capacitados en oratoria estratégica" },
+  { valor: "2021", label: "Speaker desde" },
+  { valor: "2022", label: "Mentorías con Academia USICA desde" },
+];
+
+/* ───────────────────────  Trayectoria (Visual CV)  ───────────────────── */
+
+export const perfilProfesional = [
+  "Comunicadora apasionada con 13 años de trayectoria.",
+  "Creo firmemente en el poder de la comunicación y en la capacidad de un mensaje que, entregado con criterio y convicción, puede transformar cualquier circunstancia en una experiencia memorable.",
+  "Fusiono técnicas de locución con herramientas de Coaching y Programación Neurolingüística (PNL) para desarrollar mensajes de alto impacto tanto en el ámbito corporativo como en cada proyecto de Televisión, Radio y Marca.",
+];
+
+export const radio = {
+  titulo: "Locución y producción · Identidad sonora",
+  texto:
+    "He dominado diversos formatos y estilos de programación, desarrollando campañas publicitarias con identidad sonora: comerciales en vivo, cuñas pregrabadas y sweepers que potencian el posicionamiento de marca.",
+  emisoras: [
+    { nombre: "Marquesa", dial: "101.7 FM", periodo: "2013 – 2015" },
+    { nombre: "Hits", dial: "97.7 FM", periodo: "2015 – 2018" },
+    { nombre: "Circuito Líder Barinas", dial: "107.9 FM", periodo: "2016" },
+    { nombre: "Mágica", dial: "90.9 FM", periodo: "2021 – 2026" },
+  ],
+};
+
+export const imagenDeMarca = {
+  titulo: "Imagen de marca",
+  texto:
+    "Como estratega audiovisual de contenido para empresas nacionales en sectores médicos, gastronómicos, industriales, automotrices y educativos. Adapto mensajes clave para maximizar la conexión con el consumidor, logrando alto impacto e interacción en cada campaña.",
+  claim: "Versatilidad · Credibilidad · Impacto",
+  sectores: [
+    "Médico",
+    "Gastronómico",
+    "Industrial",
+    "Automotriz",
+    "Educativo",
+  ],
+};
+
+export const hosting = {
+  titulo: "Conducción & Hosting",
+  texto:
+    "Conducción profesional de eventos corporativos, institucionales y lanzamientos de marca, especializándome en narrar la historia de cada cliente para generar una conexión genuina y de alto impacto con audiencias masivas.",
+  claim:
+    "No es solo una presentación: es la conexión y experiencia con el público y el cliente.",
+  hitos: [
+    {
+      grupo: "Eventos especiales",
+      items: [
+        "Fedecámaras Barinas — Cena de Gala",
+        "Decoceca",
+        "Torneo de Pádel Rayocero",
+        "Campeonato de Gimnasia",
+        "Híper Hadassa",
+      ],
+    },
+    {
+      grupo: "Inauguraciones",
+      items: ["KardiaCM", "Fibex Telecom", "Mundo Plast", "Grupo Nuevo Desafío"],
+    },
+    {
+      grupo: "Aniversarios",
+      items: [
+        "Hogar La Orquídea",
+        "MAG",
+        "Centro Comercial Dorado",
+        "LP Autoparts",
+        "Clínica de Cejas",
+      ],
+    },
+  ],
+};
+
+export const formacionAcademica = [
+  { especialidad: "Arquitectura", institucion: "Politécnico Santiago Mariño" },
+  {
+    especialidad: "Máster en PNL",
+    institucion: "Instituto para el Avance con la PNL",
+  },
+  {
+    especialidad: "Coaching Internacional",
+    institucion: "ACP Coaching Madrid / UCAB",
+  },
+  {
+    especialidad: "Coaching Deportivo",
+    institucion: "ACI Academia Coaching Internacional",
+  },
+  {
+    especialidad: "Locución Profesional",
+    institucion: "Voces de Marca / Voces Mágicas",
+  },
+];
+
+export const habilidades = [
+  "Locución comercial",
+  "Animación",
+  "Improvisación",
+  "Dominio de escenarios",
+  "Entrevistas",
+  "Creación de narrativa visual",
+];
+
+/* ─────────────────────────────  Marcas  ──────────────────────────────── */
+
+export const marcas = [
+  "Eurobuilding Express Barinas",
+  "FIAT",
+  "Domosa Maquinarias",
+  "XTC",
+  "Universe of Science & Innovation",
+  "Super Oil Center",
+  "La Orquídea",
+  "Mágica 90.9 FM",
+  "Fedecámaras",
+  "TCT Racing Technologies",
+  "Farmacia Santa Rosa",
+  "Bristol Restaurant",
+  "Mundo Plast",
+  "MAG",
+];
+
+/* ─────────────────────────────  Contacto  ────────────────────────────── */
+
+export const contactoIntro = {
+  titulo: "¿Listos para conectar?",
+  texto:
+    "Cuéntame qué necesitas y te respondo con una propuesta concreta. Trabajo en toda Venezuela, presencial y remoto.",
+};
+
+/** Cada motivo precarga un mensaje distinto en WhatsApp. */
+export const motivosContacto = [
+  {
+    id: "campana",
+    label: "Campaña o imagen de marca",
+    mensaje:
+      "¡Hola Mariangi! Quiero información sobre tus planes de imagen de marca.",
+  },
+  {
+    id: "evento",
+    label: "Host para un evento",
+    mensaje:
+      "¡Hola Mariangi! Quiero consultar tu disponibilidad como host para un evento.",
+  },
+  {
+    id: "locucion",
+    label: "Locución o voz comercial",
+    mensaje:
+      "¡Hola Mariangi! Necesito una cotización de locución comercial.",
+  },
+  {
+    id: "oratoria",
+    label: "Programa de oratoria",
+    mensaje:
+      "¡Hola Mariangi! Me interesa un programa de oratoria. ¿Me cuentas las modalidades?",
+  },
+  {
+    id: "corporativo",
+    label: "Formación para mi empresa",
+    mensaje:
+      "¡Hola Mariangi! Quiero información sobre formación corporativa in-company.",
+  },
+  {
+    id: "conferencia",
+    label: "Conferencia",
+    mensaje:
+      "¡Hola Mariangi! Quiero invitarte como conferencista a un evento.",
   },
 ];
