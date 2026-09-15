@@ -31,6 +31,31 @@ export const waGreeting =
 export const waLink = (message: string = waGreeting) =>
   `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`;
 
+/* ─────────────────────────────  Fotografía  ──────────────────────────── */
+
+/**
+ * Originales de 4000x6000 (~5 MB) reducidos a 2000px de ancho.
+ * Los originales `DSC_*` quedan en public/images pero fuera de git.
+ */
+export const fotos = {
+  retrato: {
+    src: "/images/mariangi-retrato.jpg",
+    alt: "Mariangi Saavedra en primer plano, con chaqueta negra, mirando a cámara",
+    /** Altura de la cara en la foto: fija el recorte del héroe a sangre. */
+    pos: "50% 42%",
+  },
+  corporativo: {
+    src: "/images/mariangi-corporativo.jpg",
+    alt: "Mariangi Saavedra de cuerpo entero con traje negro en un salón corporativo",
+    pos: "50% 26%",
+  },
+  gala: {
+    src: "/images/mariangi-gala.jpg",
+    alt: "Mariangi Saavedra con vestido largo color vino en un evento de gala",
+    pos: "50% 30%",
+  },
+} as const;
+
 /* ──────────────────────────────  Navegación  ─────────────────────────── */
 
 export const nav = [
@@ -126,44 +151,6 @@ export const valorParaMarca = {
   ],
 };
 
-/* ────────────────  FACETA 1 · Métricas de comunidad (IG)  ────────────── */
-
-export const metricas = {
-  periodo: "Últimos 30 días",
-  destacadas: [
-    { valor: "114.727", label: "Visualizaciones" },
-    { valor: "28.968", label: "Cuentas alcanzadas", delta: "+161,7%" },
-    { valor: "14,68%", label: "Tasa de interacción" },
-  ],
-  formatos: [
-    { label: "Historias", pct: 53.5 },
-    { label: "Publicaciones", pct: 27.0 },
-    { label: "Reels", pct: 19.5 },
-  ],
-  audiencia: [
-    { label: "Mujeres", pct: 58.7 },
-    { label: "Hombres", pct: 41.3 },
-  ],
-  edades: [
-    { label: "35-44", pct: 31.3 },
-    { label: "25-34", pct: 29.9 },
-    { label: "45-54", pct: 19.5 },
-    { label: "55-64", pct: 8.4 },
-  ],
-  paises: [
-    { label: "Venezuela", pct: 80.6 },
-    { label: "Estados Unidos", pct: 4.1 },
-    { label: "España", pct: 3.4 },
-    { label: "Colombia", pct: 2.3 },
-  ],
-  ciudades: [
-    { label: "Barinas", pct: 19.8 },
-    { label: "Caracas", pct: 17.5 },
-    { label: "Valencia", pct: 3.7 },
-    { label: "Barquisimeto", pct: 3.4 },
-  ],
-};
-
 /* ────────────────────────  Reels destacados  ─────────────────────────── */
 /** URLs reales extraídas de los hipervínculos de los PDF. */
 
@@ -247,11 +234,96 @@ export const testimonio = {
 
 /* ─────────────────────  FACETA 2 · Oratoria y formación  ─────────────── */
 
+/* ───────────  FACETA 2 · Producto VIP: Oratoria Personalizada  ───────── */
+
+/**
+ * Producto insignia: acompañamiento uno a uno en tres niveles.
+ *
+ * Los TRES PASOS del proceso son los que indicó Mariangi, textuales.
+ * El desarrollo de los TRES NIVELES es BORRADOR: ella dio los nombres
+ * ("Nivel 1/2/3") pero no el contenido de cada uno. Debe validarlo antes de
+ * publicar — ver `nivelesBorrador`.
+ */
+export const vip = {
+  eyebrow: "Producto VIP",
+  titulo: "Oratoria Personalizada",
+  destacado: "VIP",
+  lead: "Acompañamiento uno a uno, diseñado sobre tu punto de partida real y no sobre un programa genérico.",
+  texto:
+    "Es el formato más exclusivo que ofrezco: agenda cerrada, plan hecho a tu medida y seguimiento directo conmigo. Se estructura en tres niveles que puedes recorrer de forma progresiva o empezar donde estés.",
+
+  /** Indicado por Mariangi, textual. */
+  proceso: [
+    {
+      n: "01",
+      titulo: "Reunión exploratoria",
+      texto:
+        "Nos sentamos a conversar para entender dónde estás, qué necesitas comunicar y ante quién.",
+    },
+    {
+      n: "02",
+      titulo: "Diagnóstico de debilidades",
+      texto:
+        "Identifico con precisión qué está frenando tu comunicación: técnica, estructura, presencia o seguridad.",
+    },
+    {
+      n: "03",
+      titulo: "Propuesta de capacitación",
+      texto:
+        "Diseño una propuesta de capacitación hecha para lograr cambios reales en tu equipo.",
+    },
+  ],
+
+  /** BORRADOR pendiente de validación de Mariangi. */
+  nivelesBorrador: true,
+  niveles: [
+    {
+      n: "Nivel 1",
+      nombre: "Fundamentos",
+      para: "Para quien necesita perder el miedo y hacerse entender.",
+      incluye: [
+        "Respiración, dicción y proyección",
+        "Manejo del miedo escénico",
+        "Estructura básica de un mensaje",
+        "Postura y lenguaje corporal",
+      ],
+      resultado: "Hablar sin bloquearte y que se te entienda a la primera.",
+    },
+    {
+      n: "Nivel 2",
+      nombre: "Dominio",
+      para: "Para quien ya habla en público y quiere sostener la atención.",
+      incluye: [
+        "Storytelling aplicado a tu contexto",
+        "Dominio de escenario y del espacio",
+        "Improvisación y manejo de imprevistos",
+        "Lectura del público y ajuste en vivo",
+      ],
+      resultado: "Sostener a una sala completa de principio a fin.",
+    },
+    {
+      n: "Nivel 3",
+      nombre: "Alto impacto",
+      para: "Para quien comunica desde una posición de autoridad.",
+      incluye: [
+        "Presencia ejecutiva y voz de mando",
+        "Mensajes complejos en formato breve",
+        "Entrevistas y medios de comunicación",
+        "Preparación de conferencias y ponencias",
+      ],
+      resultado: "Una voz reconocible que abre puertas y deja huella.",
+    },
+  ],
+};
+
 export const modalidades = [
   {
     nombre: "Personalizada",
     texto: "Uno a uno. Disponible como Oratoria Express o con acompañamiento.",
     variantes: ["Oratoria Express", "Oratoria con acompañamiento"],
+    /** Es la puerta de entrada al producto VIP: se destaca sobre las demás. */
+    destacada: true,
+    href: "#vip",
   },
   {
     nombre: "Semi-personalizada",
@@ -714,6 +786,18 @@ export const marcas = [
   "Mundo Plast",
   "MAG",
 ];
+
+/* ────────────────────────────  Newsletter  ───────────────────────────── */
+
+export const newsletter = {
+  eyebrow: "Boletín",
+  titulo: "Tips de comunicación en tu correo",
+  texto:
+    "Una vez al mes: ejercicios de oratoria, recursos para hablar en público y las fechas de los próximos talleres abiertos. Sin relleno y te puedes dar de baja cuando quieras.",
+  placeholder: "tucorreo@ejemplo.com",
+  cta: "Quiero recibirlo",
+  nota: "Tu correo solo se usa para este boletín. Nunca se comparte.",
+};
 
 /* ─────────────────────────────  Contacto  ────────────────────────────── */
 

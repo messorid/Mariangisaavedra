@@ -6,7 +6,7 @@ import Scroller from "../components/Scroller";
 import Marquee from "../components/Marquee";
 import Portrait from "../components/Portrait";
 import { InstagramIcon, PlayIcon } from "../components/Icons";
-import { hosting, imagenDeMarca, reels, site } from "../lib/content";
+import { fotos, hosting, imagenDeMarca, reels, site } from "../lib/content";
 
 export const metadata: Metadata = {
   title: "Trabajos y campañas",
@@ -23,7 +23,7 @@ export default function TrabajosPage() {
         titulo="Trabajos"
         destacado="y campañas"
         texto="Una selección de campañas de marca, conducciones y eventos. Puedes ver mucho más en mi Instagram."
-        fotoLabel="Fotografía de evento"
+        foto={fotos.gala}
         acciones={
           <a
             href={site.instagram}

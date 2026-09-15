@@ -35,6 +35,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -42,3 +43,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# originales de fotografia (4000x6000, ~5 MB c/u).
+# Las versiones optimizadas a 2000px SI se versionan: public/images/mariangi-*.jpg
+/public/images/DSC_*

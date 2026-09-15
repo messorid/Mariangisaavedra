@@ -1,4 +1,4 @@
-import { credenciales, manifiesto } from "@/app/lib/content";
+import { credenciales, fotos, manifiesto } from "@/app/lib/content";
 import Monogram from "./Monogram";
 import Portrait from "./Portrait";
 import Section, { Eyebrow } from "./Section";
@@ -14,9 +14,10 @@ export default function Manifiesto() {
       <div className="relative grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
         <div className="relative">
           <Portrait
+            src={fotos.gala.src}
+            alt={fotos.gala.alt}
             className="aspect-[3/4] w-full rounded-3xl lg:sticky lg:top-28"
             sizes="(max-width: 1024px) 100vw, 40vw"
-            label="Retrato editorial"
           />
         </div>
 

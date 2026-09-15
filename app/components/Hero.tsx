@@ -1,25 +1,34 @@
-import { site, waLink } from "@/app/lib/content";
-import Portrait from "./Portrait";
-import Monogram from "./Monogram";
-import { ArrowIcon } from "./Icons";
 import Link from "next/link";
+import { fotos, site, waLink } from "@/app/lib/content";
+import HeroPhoto from "./HeroPhoto";
+import { ArrowIcon } from "./Icons";
 
+/**
+ * Héroe de la portada: fotografía a sangre y texto encima, igual que las
+ * páginas internas. El velo y su cálculo de contraste están en `HeroPhoto`.
+ *
+ * Sobre foto todo el texto va en blanco salvo el apellido, que es display
+ * grande y puede llevar el malva claro (umbral 3:1).
+ */
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-paper pt-20">
-      <div className="mx-auto grid max-w-7xl items-end gap-10 px-5 pb-16 pt-12 md:grid-cols-2 md:px-10 md:pb-20 md:pt-20">
-        {/* Columna de texto */}
-        <div className="relative z-10 order-2 text-center md:order-1 md:text-left">
-          <p className="eyebrow text-brand-deep">Comunicadora · Venezuela</p>
+    // pt en móvil: deja pasar la barra fija antes de la foto.
+    // En md la foto es un panel absoluto y el respiro lo pone el contenido.
+    <section className="relative isolate overflow-hidden bg-ink pt-[4.5rem] text-white md:pt-0">
+      <HeroPhoto foto={fotos.retrato} />
 
-          <h1 className="display mt-4 text-[clamp(2.75rem,9vw,5.5rem)] text-ink">
+      <div className="relative mx-auto flex max-w-7xl flex-col justify-center px-5 pb-20 pt-12 md:min-h-[42rem] md:px-10 md:pb-28 md:pt-36">
+        <div className="max-w-xl text-center md:max-w-[26rem] md:text-left lg:max-w-[34rem]">
+          <p className="eyebrow text-brand-soft">Comunicadora · Venezuela</p>
+
+          <h1 className="display mt-4 text-[clamp(2.75rem,9vw,5.5rem)]">
             Mariangi
             <br />
-            <span className="text-brand-deep">Saavedra</span>
+            <span className="text-brand-soft">Saavedra</span>
           </h1>
 
           <p
-            className="mt-4 text-lg text-ink-3"
+            className="mt-4 text-lg text-white/90"
             style={{ fontFamily: "var(--font-accent)" }}
           >
             {site.tagline}
@@ -29,7 +38,7 @@ export default function Hero() {
             {site.roles.map((rol) => (
               <li
                 key={rol}
-                className="eyebrow rounded-full border border-line bg-white px-4 py-2 text-ink-3"
+                className="eyebrow rounded-full border border-white/35 px-4 py-2 text-white"
               >
                 {rol}
               </li>
@@ -46,7 +55,7 @@ export default function Hero() {
             </Link>
             <Link
               href="/formacion"
-              className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-brand px-6 py-3.5 text-sm font-semibold text-brand-deep transition-colors duration-200 hover:bg-brand-tint"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/40 px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-white/10"
             >
               Oratoria y formación
               <ArrowIcon className="h-[18px] w-[18px]" />
@@ -57,24 +66,10 @@ export default function Hero() {
             href={waLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-5 inline-block cursor-pointer text-sm text-ink-3 underline underline-offset-4 transition-colors duration-200 hover:text-brand-deep"
+            className="mt-6 inline-block cursor-pointer text-sm text-white/85 underline underline-offset-4 transition-colors duration-200 hover:text-white"
           >
             O escríbeme directo por WhatsApp
           </a>
-        </div>
-
-        {/* Retrato */}
-        <div className="relative order-1 md:order-2">
-          <Monogram
-            className="pointer-events-none absolute -left-16 -top-10 z-0 h-[420px] w-auto text-brand/[0.08] md:-left-28 md:h-[540px]"
-            strokeWidth={14}
-          />
-          <Portrait
-            className="relative z-10 aspect-[4/5] w-full rounded-3xl"
-            sizes="(max-width: 768px) 100vw, 45vw"
-            priority
-            label="Retrato principal"
-          />
         </div>
       </div>
     </section>

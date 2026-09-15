@@ -4,9 +4,11 @@ import PageHero from "../components/PageHero";
 import Section, { Eyebrow, Lead, SectionTitle } from "../components/Section";
 import CtaBanner from "../components/CtaBanner";
 import Scroller from "../components/Scroller";
+import Vip from "../components/Vip";
 import { ArrowIcon, CheckIcon, MicIcon } from "../components/Icons";
 import {
   categoriasOratoria,
+  fotos,
   conferencias,
   metodologia,
   modalidades,
@@ -40,14 +42,14 @@ export default function FormacionPage() {
         titulo="Comunicar mejor"
         destacado="cambia los resultados"
         texto="Fusiono técnicas de locución con herramientas de Coaching y Programación Neurolingüística para desarrollar mensajes de alto impacto, tanto en el ámbito corporativo como personal."
-        fotoLabel="Fotografía en formación"
+        foto={fotos.corporativo}
         acciones={
           <>
             <a
-              href="#programas"
+              href="#vip"
               className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-brand-deep px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-ink-2"
             >
-              Ver programas
+              Oratoria Personalizada VIP
               <ArrowIcon className="h-[18px] w-[18px]" />
             </a>
             <a
@@ -73,6 +75,8 @@ export default function FormacionPage() {
           ))}
         </dl>
       </section>
+
+      <Vip />
 
       {/* Metodología */}
       <Section>
@@ -122,11 +126,26 @@ export default function FormacionPage() {
           {modalidades.map((m) => (
             <article
               key={m.nombre}
-              className="rounded-2xl border border-line bg-white p-6"
+              /* La Personalizada es la puerta al VIP: se marca con anillo malva
+                 y etiqueta, para que no se lea como una modalidad más. */
+              className={`flex flex-col rounded-2xl p-6 ${
+                m.destacada
+                  ? "bg-white ring-2 ring-brand"
+                  : "border border-line bg-white"
+              }`}
             >
-              <MicIcon className="h-6 w-6 text-brand-deep" />
+              <div className="flex items-start justify-between gap-3">
+                <MicIcon className="h-6 w-6 text-brand-deep" />
+                {m.destacada ? (
+                  <span className="eyebrow rounded-full bg-ink px-3 py-1.5 text-white">
+                    VIP
+                  </span>
+                ) : null}
+              </div>
+
               <h4 className="display mt-4 text-xl text-ink">{m.nombre}</h4>
               <p className="mt-2 text-sm text-ink-3">{m.texto}</p>
+
               {m.variantes.length > 0 ? (
                 <ul className="mt-4 space-y-1.5">
                   {m.variantes.map((v) => (
@@ -139,6 +158,16 @@ export default function FormacionPage() {
                     </li>
                   ))}
                 </ul>
+              ) : null}
+
+              {m.href ? (
+                <a
+                  href={m.href}
+                  className="mt-auto inline-flex cursor-pointer items-center gap-2 pt-6 text-sm font-semibold text-brand-deep transition-colors duration-200 hover:text-ink"
+                >
+                  Ver el programa VIP
+                  <ArrowIcon className="h-[18px] w-[18px]" />
+                </a>
               ) : null}
             </article>
           ))}

@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "../components/PageHero";
 import Section, { Eyebrow, Lead, SectionTitle } from "../components/Section";
-import Metricas from "../components/Metricas";
 import Marquee from "../components/Marquee";
 import CtaBanner from "../components/CtaBanner";
 import Scroller from "../components/Scroller";
 import Portrait from "../components/Portrait";
 import { ArrowIcon, CheckIcon, PlayIcon } from "../components/Icons";
 import {
+  fotos,
   otrosServicios,
   planes,
   reels,
@@ -33,7 +33,7 @@ export default function MarcasPage() {
         titulo="Me especializo en ser la voz y la imagen"
         destacado="que tu marca necesita"
         texto="Como Voz e Imagen de Marcas me convierto en el rostro y el sonido que transmite confianza, profesionalismo y cercanía a tu público objetivo."
-        fotoLabel="Retrato — Media Kit"
+        foto={fotos.gala}
         acciones={
           <>
             <a
@@ -42,12 +42,6 @@ export default function MarcasPage() {
             >
               Ver planes
               <ArrowIcon className="h-[18px] w-[18px]" />
-            </a>
-            <a
-              href="#metricas"
-              className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/30 px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-white/10"
-            >
-              Ver métricas
             </a>
           </>
         }
@@ -77,7 +71,6 @@ export default function MarcasPage() {
         </Scroller>
       </Section>
 
-      <Metricas />
 
       {/* Reels */}
       <Section>

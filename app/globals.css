@@ -22,9 +22,8 @@
   --color-paper: #fafafa;
   --color-line: #e6e0e8;
 
-  /* Acento de datos: SOLO en gráficas de métricas, nunca en UI */
-  --color-data-a: #e1306c;
-  --color-data-b: #5b21f5;
+  /* Error de formulario. Vino de marca; 7,8:1 sobre el tinte lavanda. */
+  --color-error: #8e2438;
 
   /* Tipografía */
   --font-display: var(--font-oswald);

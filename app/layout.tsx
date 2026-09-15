@@ -3,6 +3,7 @@ import { Montserrat, Oswald, Tenor_Sans } from "next/font/google";
 import "./globals.css";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
+import Newsletter from "./components/Newsletter";
 import { site } from "./lib/content";
 
 const montserrat = Montserrat({
@@ -69,6 +70,7 @@ export default function RootLayout({
         <main id="contenido" className="flex-1">
           {children}
         </main>
+        <Newsletter />
         <Footer />
       </body>
     </html>

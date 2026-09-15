@@ -8,6 +8,7 @@ import SoundWave from "../components/SoundWave";
 import { CheckIcon } from "../components/Icons";
 import {
   formacionAcademica,
+  fotos,
   habilidades,
   hosting,
   imagenDeMarca,
@@ -31,7 +32,7 @@ export default function SobreMiPage() {
         titulo="Mariangi"
         destacado="Saavedra"
         texto={`Comunicadora apasionada con ${site.yearsOfExperience} años de trayectoria en radio, televisión, eventos y formación.`}
-        fotoLabel="Retrato — Visual CV"
+        foto={fotos.retrato}
       />
 
       {/* Perfil */}

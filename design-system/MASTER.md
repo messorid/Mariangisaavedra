@@ -15,12 +15,9 @@
 | `--ink` | `#1E1A21` | Texto principal / fondo oscuro dramático |
 | `--ink-2` | `#342937` | Superficies oscuras y hover de botones sólidos |
 | `--ink-3` | `#544B57` | Texto secundario sobre claro (8,0:1 sobre `--paper`) |
+| `--error` | `#8E2438` | Vino. Errores de formulario (7,8:1 sobre el tinte) |
 | `--paper` | `#FAFAFA` | Fondo base del sitio |
 | `--white` | `#FFFFFF` | Tarjetas, superficies elevadas |
-
-Acento de datos (solo en la sección de métricas, viene de los screenshots de
-Instagram del media kit): magenta `#E1306C` → violeta `#5B21F5`. **Usar
-únicamente en gráficos**, nunca en UI.
 
 ### Contraste — medido, no estimado
 
@@ -132,6 +129,96 @@ Tres restricciones al usarlo:
 `.no-scrollbar` vive fuera de `@layer utilities`: Tailwind v4 descarta la regla
 cuando incluye un pseudo-elemento `::-webkit-scrollbar`.
 
+## 3c. Fotografía
+
+Tres fotos de sesión, asignadas por lo que comunica cada una:
+
+| Archivo | Qué muestra | Dónde se usa |
+|---|---|---|
+| `mariangi-retrato.jpg` | Primer plano, chaqueta negra, mirada a cámara | Portada (héroe a sangre), `/sobre-mi` |
+| `mariangi-corporativo.jpg` | Cuerpo entero, traje negro, salón corporativo | `/formacion` (héroe a sangre), sección VIP |
+| `mariangi-gala.jpg` | Vestido largo vino, evento de gala | `/marcas` y `/trabajos` (héroe a sangre), Manifiesto |
+
+Los originales llegan a 4000×6000 y ~5 MB. **Se reducen a 2000px de ancho y
+JPEG calidad 82** antes de entrar al repo: 16 MB → 1,5 MB sin pérdida visible
+a los tamaños en que se muestran. Los `DSC_*` originales quedan en
+`public/images` pero fuera de git.
+
+Las rutas viven en `fotos` (`app/lib/content.ts`), nunca escritas a mano en los
+componentes, y cada una lleva su `alt` descriptivo. `Portrait` acepta
+`src`/`alt`; sin ellos pinta el marcador malva con el monograma.
+
+## 3c-bis. Héroes con fotografía
+
+**Los cuatro héroes son iguales**: portada (`Hero`) y páginas internas
+(`PageHero`). La fotografía la pone `app/components/HeroPhoto.tsx`, que es
+donde vive todo el comportamiento — no se duplica en cada héroe.
+
+La foto **no se comporta igual en móvil que en escritorio**, y es a propósito:
+
+**Escritorio.** La foto ocupa un panel a la derecha (`46%` en `md`, `50%` desde
+`lg`), no todo el ancho. A sangre completa, `object-cover` la escalaba a
+1900/2000 ≈ 0,95 — casi tamaño natural — y el sujeto salía gigante. Y no se
+arregla alargando el héroe: la restricción es el ancho, no el alto. Con el
+panel al 50% la escala baja a ~0,48 y el texto gana aire.
+
+**Móvil.** La foto va limpia arriba, en su propio bloque (`aspect-[4/5]`), y el
+texto debajo sobre `--ink` sólido. Antes iba detrás del texto con un velo al
+85% y la imagen quedaba como una mancha sucia en la que no se distinguía nada.
+
+### La regla que sostiene el contraste
+
+En ambos casos **el texto se apoya sobre `--ink` opaco**, nunca sobre la foto
+velada. Sobre ink sólido: blanco 17,1:1 · `--brand-soft` 5,5:1 — todo pasa AA,
+incluida la etiqueta pequeña en malva.
+
+Eso depende de una geometría concreta: el degradado del panel mantiene ink
+**opaco durante su primer 25%**, y la columna de texto (`26rem` en `md`,
+`34rem` desde `lg`) termina siempre antes de ese punto. Comprobado de 768px a
+2560px. **Si ensanchas la columna de texto o estrechas la zona opaca, el texto
+se mete en la zona translúcida y el contraste se cae** — el blanco sobre
+`ink/50` baja a 3,1:1.
+
+### Recorte
+
+Las tres fotos son verticales y en el panel solo se ve una franja, así que hay
+que apuntarla a la cara. El valor viaja con la foto en `fotos` (content.ts), no
+en el componente: retrato `50% 42%`, corporativo `50% 26%`, gala `50% 30%`.
+Son estimaciones a ojo, fáciles de afinar.
+
+## 3d. Producto VIP
+
+`Oratoria Personalizada VIP` es el producto insignia y tiene que **leerse como
+la oferta principal, no como una más**. Por eso:
+
+- Sección propia (`app/components/Vip.tsx`) en tono `ink`, a ancho completo,
+  cortando visualmente con el resto de `/formacion`.
+- Va inmediatamente después de la prueba social, antes que metodología y
+  programas.
+- Es la acción principal del hero de `/formacion` (`#vip`).
+- La modalidad «Personalizada» se marca con anillo malva y etiqueta VIP, y
+  enlaza a la sección.
+
+Tres niveles y un proceso de tres pasos (reunión exploratoria → diagnóstico →
+propuesta). **Los pasos son textuales de Mariangi; los niveles son borrador**
+(`nivelesBorrador: true`).
+
+## 3e. Boletín
+
+`app/actions/newsletter.ts` da de alta en **Resend Audiences**. Necesita
+`RESEND_API_KEY` y `RESEND_AUDIENCE_ID` — ver `.env.example`.
+
+Sin esas variables la acción **no dice que la suscripción funcionó**: devuelve
+un aviso pidiendo escribir por WhatsApp y registra un error en el log del
+servidor. Nunca se le confirma a una visitante un alta que no ocurrió.
+
+No se escribe a disco: en Vercel el sistema de archivos es de solo lectura y
+los datos se perderían en cada despliegue.
+
+El formulario lleva trampa antispam (campo `empresa` oculto), `label` real en
+cada campo, `aria-live` en el mensaje de estado y altura reservada para que el
+bloque no salte al responder.
+
 ## 4. Efectos permitidos
 
 Reveal on scroll (fade + 16px up), parallax leve en retratos, marquee de logos
@@ -153,6 +240,8 @@ de marcas, contador animado en métricas. Todo bajo `prefers-reduced-motion`.
 - Contacto: `@mariangisaavedra` · `mariangisaavedra@gmail.com` · `0414-9544415`
 - Métricas (últimos 30 días): 114.727 visualizaciones · 28.968 cuentas alcanzadas
   (+161,7%) · tasa de interacción 14,68%
+  > La sección que las mostraba en `/marcas` se retiró por decisión de cliente.
+  > Los números se conservan aquí; ya no existen en `app/lib/content.ts`.
 - Audiencia: 58,7% mujeres / 41,3% hombres · 61,2% entre 25 y 44 años ·
   Venezuela 80,6% · Barinas 19,8%, Caracas 17,5%
 - Planes: Focus $300 · Evolución $500 · Embajadora PRO $750
