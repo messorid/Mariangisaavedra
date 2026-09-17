@@ -69,15 +69,13 @@ tipografía condensada enorme, franjas malva, mucho aire.
 ## 3\. Barra de navegación
 
 **Fondo opaco `bg-paper` siempre, en todas las páginas.** No transparente
-arriba del todo: la home abre con héroe claro pero las seis páginas internas
-abren con héroe oscuro (`bg-ink`), y ahí el logo en tinta y el botón de menú
-desaparecían.
+arriba del todo: **los cuatro héroes abren con fotografía sobre `--ink`**, y
+sobre ese fondo oscuro el logo en tinta y el botón de menú desaparecían.
 
 Tampoco translúcida: con `bg-paper/90` sobre héroe oscuro la barra baja a
 `#E4E4E4` y el malva del logo cae a **4,15:1** — por debajo de AA. Haría falta
 95% para pasar, y a esa opacidad el `backdrop-blur` ya no se percibe, así que no
-compensa. Opaca da 5,06:1 en el logo y 7,98:1 en los enlaces, en cualquier
-página.
+compensa. Opaca da 5,06:1 en el logo y 7,98:1 en los enlaces.
 
 Lo único que reacciona al scroll es el borde inferior.
 
@@ -186,6 +184,27 @@ que apuntarla a la cara. El valor viaja con la foto en `fotos` (content.ts), no
 en el componente: retrato `50% 42%`, corporativo `50% 26%`, gala `50% 30%`.
 Son estimaciones a ojo, fáciles de afinar.
 
+## 3c-ter. Arquitectura de /formacion
+
+Dos ejes que se cruzan, cada uno con sus propias páginas:
+
+| Eje | Qué define | Ruta | Cuántas |
+|---|---|---|---|
+| **Modalidad** | Cómo se trabaja | `/formacion/modalidad/[slug]` | 4 |
+| **Categoría** | Sobre qué se trabaja | `/formacion/[slug]` | 7 |
+
+Van en segmentos distintos **a propósito**: con un solo `[slug]` compartido los
+28 slugs competirían en el mismo espacio de nombres y la página tendría que
+adivinar de qué tipo es cada uno. Separados, Next resuelve el segmento estático
+`modalidad` antes que el dinámico y no hay ambigüedad posible.
+
+Cualquier categoría se puede dictar en cualquier modalidad, así que ambas fichas
+enlazan a la lista completa de la otra.
+
+**Las tarjetas son el enlace, no un texto dentro de la tarjeta.** Toda la
+superficie es clicable; el «Ver modalidad» del pie es señal visual, no el único
+punto de clic.
+
 ## 3d. Producto VIP
 
 `Oratoria Personalizada VIP` es el producto insignia y tiene que **leerse como
@@ -196,8 +215,8 @@ la oferta principal, no como una más**. Por eso:
 - Va inmediatamente después de la prueba social, antes que metodología y
   programas.
 - Es la acción principal del hero de `/formacion` (`#vip`).
-- La modalidad «Personalizada» se marca con anillo malva y etiqueta VIP, y
-  enlaza a la sección.
+- La modalidad «Personalizada» se marca con anillo malva y etiqueta VIP en la
+  parrilla, y su ficha enlaza de vuelta a esta sección.
 
 Tres niveles y un proceso de tres pasos (reunión exploratoria → diagnóstico →
 propuesta). **Los pasos son textuales de Mariangi; los niveles son borrador**

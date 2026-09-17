@@ -119,57 +119,56 @@ export default function FormacionPage() {
 
         <h3 className="eyebrow mt-14 text-center text-ink-3 md:text-left">Modalidades</h3>
         <Scroller
+          as="ul"
           label="Modalidades de los programas"
           cols="md:grid-cols-2 lg:grid-cols-4"
           className="mt-5"
         >
           {modalidades.map((m) => (
-            <article
-              key={m.nombre}
-              /* La Personalizada es la puerta al VIP: se marca con anillo malva
-                 y etiqueta, para que no se lea como una modalidad más. */
-              className={`flex flex-col rounded-2xl p-6 ${
-                m.destacada
-                  ? "bg-white ring-2 ring-brand"
-                  : "border border-line bg-white"
-              }`}
-            >
-              <div className="flex items-start justify-between gap-3">
-                <MicIcon className="h-6 w-6 text-brand-deep" />
-                {m.destacada ? (
-                  <span className="eyebrow rounded-full bg-ink px-3 py-1.5 text-white">
-                    VIP
-                  </span>
+            <li key={m.slug}>
+              <Link
+                href={`/formacion/modalidad/${m.slug}`}
+                /* La tarjeta entera es el enlace, no solo un texto dentro.
+                   La Personalizada lleva anillo malva y etiqueta VIP porque
+                   es la puerta de entrada al producto insignia. */
+                className={`group flex h-full cursor-pointer flex-col rounded-2xl bg-white p-6 transition-colors duration-200 ${
+                  m.destacada
+                    ? "ring-2 ring-brand hover:ring-brand-deep"
+                    : "border border-line hover:border-brand"
+                }`}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <MicIcon className="h-6 w-6 text-brand-deep" />
+                  {m.destacada ? (
+                    <span className="eyebrow rounded-full bg-ink px-3 py-1.5 text-white">
+                      VIP
+                    </span>
+                  ) : null}
+                </div>
+
+                <h4 className="display mt-4 text-xl text-ink">{m.nombre}</h4>
+                <p className="mt-2 text-sm text-ink-3">{m.texto}</p>
+
+                {m.variantes.length > 0 ? (
+                  <ul className="mt-4 space-y-1.5">
+                    {m.variantes.map((v) => (
+                      <li
+                        key={v}
+                        className="flex items-start gap-2 text-sm text-ink-3"
+                      >
+                        <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-brand-deep" />
+                        {v}
+                      </li>
+                    ))}
+                  </ul>
                 ) : null}
-              </div>
 
-              <h4 className="display mt-4 text-xl text-ink">{m.nombre}</h4>
-              <p className="mt-2 text-sm text-ink-3">{m.texto}</p>
-
-              {m.variantes.length > 0 ? (
-                <ul className="mt-4 space-y-1.5">
-                  {m.variantes.map((v) => (
-                    <li
-                      key={v}
-                      className="flex items-start gap-2 text-sm text-ink-3"
-                    >
-                      <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-brand-deep" />
-                      {v}
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-
-              {m.href ? (
-                <a
-                  href={m.href}
-                  className="mt-auto inline-flex cursor-pointer items-center gap-2 pt-6 text-sm font-semibold text-brand-deep transition-colors duration-200 hover:text-ink"
-                >
-                  Ver el programa VIP
+                <span className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-brand-deep transition-colors duration-200 group-hover:text-ink">
+                  Ver modalidad
                   <ArrowIcon className="h-[18px] w-[18px]" />
-                </a>
-              ) : null}
-            </article>
+                </span>
+              </Link>
+            </li>
           ))}
         </Scroller>
 

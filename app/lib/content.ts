@@ -316,31 +316,151 @@ export const vip = {
   ],
 };
 
-export const modalidades = [
+/**
+ * Modalidades: el CÓMO se dicta. Cada una tiene página propia en
+ * /formacion/modalidad/[slug].
+ *
+ * Los nombres, el resumen y las variantes salen del documento de Mariangi.
+ * El desarrollo de cada ficha (lead, para quién, cómo funciona, qué incluye)
+ * es BORRADOR redactado a partir de su metodología. Debe validarlo antes de
+ * publicar — ver `borrador` en cada ficha.
+ */
+export type Modalidad = {
+  slug: string;
+  nombre: string;
+  /** Título para <title> y buscadores: el nombre suelto no se lee bien. */
+  tituloSeo: string;
+  texto: string;
+  variantes: string[];
+  /** La Personalizada es la puerta de entrada al producto VIP. */
+  destacada?: boolean;
+  lead: string;
+  paraQuien: string;
+  comoFunciona: string[];
+  incluye: string[];
+  ideal: string[];
+  borrador: boolean;
+};
+
+export const modalidades: Modalidad[] = [
   {
+    slug: "personalizada",
     nombre: "Personalizada",
+    tituloSeo: "Oratoria personalizada uno a uno",
     texto: "Uno a uno. Disponible como Oratoria Express o con acompañamiento.",
     variantes: ["Oratoria Express", "Oratoria con acompañamiento"],
-    /** Es la puerta de entrada al producto VIP: se destaca sobre las demás. */
     destacada: true,
-    href: "#vip",
+    lead: "Uno a uno, agenda cerrada y un plan construido sobre tu punto de partida real.",
+    paraQuien:
+      "Profesionales y directivos que necesitan resultados concretos en poco tiempo, y quien prefiere trabajar sus bloqueos en privado.",
+    comoFunciona: [
+      "Sesiones individuales, solo tú y yo",
+      "El plan se arma después del diagnóstico, no antes",
+      "Ritmo y horarios ajustados a tu agenda",
+      "Seguimiento directo entre sesión y sesión",
+    ],
+    incluye: [
+      "Diagnóstico inicial de tu comunicación",
+      "Plan de trabajo a tu medida",
+      "Ejercicios prácticos entre sesiones",
+      "Retroalimentación grabada de tus intervenciones",
+    ],
+    ideal: [
+      "Preparar una ponencia o presentación concreta",
+      "Ganar presencia para un nuevo cargo",
+      "Superar el miedo escénico sin exponerte ante un grupo",
+    ],
+    borrador: true,
   },
   {
+    slug: "semi-personalizada",
     nombre: "Semi-personalizada",
+    tituloSeo: "Oratoria en grupos de tres",
     texto: "Grupos reducidos de 3 participantes.",
     variantes: [],
+    lead: "Grupos de tres: atención cercana y el empuje de practicar con otros.",
+    paraQuien:
+      "Quien quiere el detalle del acompañamiento individual pero prefiere aprender viendo a otros y recibir su mirada.",
+    comoFunciona: [
+      "Máximo tres participantes por grupo",
+      "Cada quien trabaja su propio caso",
+      "Práctica cruzada: hablas y también escuchas",
+      "Retroalimentación mía y de tus compañeros",
+    ],
+    incluye: [
+      "Diagnóstico individual dentro del grupo",
+      "Ejercicios de práctica en vivo",
+      "Retroalimentación estructurada",
+      "Material de apoyo",
+    ],
+    ideal: [
+      "Practicar ante público sin exponerte a una sala llena",
+      "Compartir la inversión sin perder cercanía",
+      "Aprender también de los errores ajenos",
+    ],
+    borrador: true,
   },
   {
+    slug: "grupal-abierto",
     nombre: "Grupal abierto",
+    tituloSeo: "Talleres de oratoria en grupo abierto",
     texto: "Talleres abiertos con inscripción individual.",
     variantes: [],
+    lead: "Talleres con inscripción individual: la forma más accesible de empezar.",
+    paraQuien:
+      "Quien quiere dar el primer paso en oratoria sin comprometerse a un programa largo, y quien aprende mejor en grupo.",
+    comoFunciona: [
+      "Fechas abiertas anunciadas con antelación",
+      "Te inscribes por tu cuenta, sin necesidad de grupo",
+      "Formato taller: se practica desde el primer día",
+      "Grupos con perfiles variados",
+    ],
+    incluye: [
+      "Sesión práctica de oratoria",
+      "Ejercicios de voz, postura y estructura",
+      "Material de apoyo",
+      "Certificado de participación",
+    ],
+    ideal: [
+      "Probar la metodología antes de un programa mayor",
+      "Perder el miedo a hablar delante de desconocidos",
+      "Empezar con una inversión contenida",
+    ],
+    borrador: true,
   },
   {
+    slug: "empresarial",
     nombre: "Empresarial / Corporativo",
+    tituloSeo: "Oratoria empresarial e in-company",
     texto: "Programas in-company diseñados a la medida de la organización.",
     variantes: [],
+    lead: "Programas in-company diseñados sobre lo que le pasa de verdad a tu equipo.",
+    paraQuien:
+      "Empresas e instituciones que necesitan mejorar la comunicación de un área concreta o de toda la organización.",
+    comoFunciona: [
+      "Reunión exploratoria con la empresa",
+      "Diagnóstico de las debilidades del equipo",
+      "Propuesta de capacitación a la medida",
+      "Ejecución in-company, en tus instalaciones o en remoto",
+    ],
+    incluye: [
+      "Diagnóstico previo del equipo",
+      "Programa diseñado a la medida",
+      "Sesiones presenciales o remotas",
+      "Informe de cierre con resultados y recomendaciones",
+    ],
+    ideal: [
+      "Equipos comerciales que necesitan cerrar mejor",
+      "Áreas de atención al cliente y call center",
+      "Programas de liderazgo y habilidades blandas",
+    ],
+    borrador: true,
   },
 ];
+
+export const getModalidad = (slug: string) =>
+  modalidades.find((m) => m.slug === slug);
+
 
 /**
  * Categorías de oratoria. Cada una tiene su propia página en /formacion/[slug].

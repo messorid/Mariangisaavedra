@@ -204,13 +204,19 @@ export default async function CategoriaPage({
           className="mt-12"
         >
           {modalidades.map((m) => (
-            <li
-              key={m.nombre}
-              className="rounded-2xl bg-white/5 p-7 ring-1 ring-white/10"
-            >
-              <MicIcon className="h-6 w-6 text-brand-soft" />
-              <h3 className="display mt-4 text-xl text-white">{m.nombre}</h3>
-              <p className="mt-2 text-sm text-white/70">{m.texto}</p>
+            <li key={m.slug}>
+              <Link
+                href={`/formacion/modalidad/${m.slug}`}
+                className="group flex h-full cursor-pointer flex-col rounded-2xl bg-white/5 p-7 ring-1 ring-white/10 transition-colors duration-200 hover:bg-white/10 hover:ring-brand-soft/60"
+              >
+                <MicIcon className="h-6 w-6 text-brand-soft" />
+                <h3 className="display mt-4 text-xl text-white">{m.nombre}</h3>
+                <p className="mt-2 text-sm text-white/70">{m.texto}</p>
+                <span className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-brand-soft">
+                  Ver modalidad
+                  <ArrowIcon className="h-[18px] w-[18px]" />
+                </span>
+              </Link>
             </li>
           ))}
         </Scroller>
