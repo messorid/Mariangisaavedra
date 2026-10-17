@@ -11,7 +11,6 @@ import {
   fotos,
   habilidades,
   hosting,
-  imagenDeMarca,
   perfilProfesional,
   radio,
   site,
@@ -73,26 +72,6 @@ export default function SobreMiPage() {
             </li>
           ))}
         </Scroller>
-      </Section>
-
-      {/* Imagen de marca */}
-      <Section>
-        <div className="max-w-3xl text-center md:text-left">
-          <Eyebrow>{imagenDeMarca.claim}</Eyebrow>
-          <SectionTitle>{imagenDeMarca.titulo}</SectionTitle>
-          <Lead>{imagenDeMarca.texto}</Lead>
-        </div>
-
-        <ul className="mt-10 flex flex-wrap justify-center gap-2.5 md:justify-start">
-          {imagenDeMarca.sectores.map((s) => (
-            <li
-              key={s}
-              className="rounded-full border border-line bg-white px-5 py-2.5 text-sm font-semibold text-ink-3"
-            >
-              {s}
-            </li>
-          ))}
-        </ul>
       </Section>
 
       {/* Conducción y hosting */}

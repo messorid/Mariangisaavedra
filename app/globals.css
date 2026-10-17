@@ -139,6 +139,80 @@
   display: none;
 }
 
+/* ============================================================
+   Fondos de sección (public/images/fondos)
+   La imagen va en un ::before detrás del contenido, con un velo del
+   color de la sección encima. Plano y fuera de @layer por el mismo
+   motivo que .no-scrollbar (pseudo-elemento).
+
+   Los velos están MEDIDOS, no a ojo: son el mínimo que deja el texto
+   en AA (≥4,5:1) en el peor píxel de la zona donde va el texto,
+   simulando el recorte real a 390, 1024, 1440 y 1920 px de ancho.
+   - Malva: blanco ≥4,5:1. Las ondas brillan mucho, por eso el centro
+     va al 90% y solo los bordes dejan ver la imagen.
+   - Oscuro: malva claro ≥4,6:1. La imagen está reflejada para que el
+     bokeh fuerte quede a la derecha, lejos de los títulos.
+   - Lavanda: malva de texto ≥4,5:1 sobre las líneas de las esquinas.
+   - Papel: el trazo está pegado al borde derecho, donde no hay texto
+     malva pequeño; basta un velo ligero.
+   Si se cambia una imagen, hay que volver a medir.
+   ============================================================ */
+.fondo {
+  isolation: isolate;
+}
+
+.fondo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--fondo-velo), var(--fondo-img);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* En escritorio las claras se estiran en vez de recortarse: sus adornos
+   están en las esquinas y con `cover` se perderían en secciones altas. */
+@media (min-width: 768px) {
+  .fondo-lavanda::before,
+  .fondo-papel::before {
+    background-size: 100% 100%;
+  }
+}
+
+.fondo-malva {
+  --fondo-img: url("/images/fondos/fondo-cta-malva.webp");
+  --fondo-velo: linear-gradient(
+    90deg,
+    rgb(121 101 126 / 0.25) 0%,
+    rgb(121 101 126 / 0.9) 25%,
+    rgb(121 101 126 / 0.9) 75%,
+    rgb(121 101 126 / 0.25) 100%
+  );
+}
+
+.fondo-oscuro {
+  --fondo-img: url("/images/fondos/fondo-oscuro-escenario.webp");
+  --fondo-velo: linear-gradient(
+    90deg,
+    rgb(30 26 33 / 0.8) 0%,
+    rgb(30 26 33 / 0.8) 60%,
+    rgb(30 26 33 / 0.2) 100%
+  );
+}
+
+.fondo-lavanda {
+  --fondo-img: url("/images/fondos/fondo-claro-lavanda.webp");
+  --fondo-velo: linear-gradient(rgb(251 241 255 / 0.5), rgb(251 241 255 / 0.5));
+}
+
+.fondo-papel {
+  --fondo-img: url("/images/fondos/fondo-claro-papel.webp");
+  --fondo-velo: linear-gradient(rgb(250 250 250 / 0.25), rgb(250 250 250 / 0.25));
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

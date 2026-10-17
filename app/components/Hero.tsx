@@ -47,17 +47,17 @@ export default function Hero() {
 
           <div className="mt-9 flex flex-wrap justify-center gap-3 md:justify-start">
             <Link
-              href="/marcas"
+              href="/publicidad"
               className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-brand-deep px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-ink-2"
             >
-              Para tu marca
+              Publicidad
               <ArrowIcon className="h-[18px] w-[18px]" />
             </Link>
             <Link
-              href="/formacion"
+              href="/capacitaciones"
               className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/40 px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-white/10"
             >
-              Oratoria y formación
+              Capacitaciones
               <ArrowIcon className="h-[18px] w-[18px]" />
             </Link>
           </div>

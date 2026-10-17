@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Section, { Eyebrow, SectionTitle } from "../components/Section";
-import Scroller from "../components/Scroller";
 import Monogram from "../components/Monogram";
 import {
   ArrowIcon,
@@ -15,7 +14,7 @@ import { contactoIntro, motivosContacto, site, waLink } from "../lib/content";
 export const metadata: Metadata = {
   title: "Contacto",
   description:
-    "Escríbeme por WhatsApp, correo o Instagram. Campañas, eventos, locución y formación en oratoria. Venezuela.",
+    "Escríbeme por WhatsApp, correo o Instagram. Publicidad para marcas y capacitaciones en oratoria. Venezuela.",
   alternates: { canonical: "/contacto" },
 };
 
@@ -49,21 +48,30 @@ export default function ContactoPage() {
           </p>
         </div>
 
-        <Scroller as="ul" label="Motivos de contacto" cols="md:grid-cols-2 lg:grid-cols-3" className="mt-12">
-          {motivosContacto.map((m) => (
-            <li key={m.id}>
-              <a
-                href={waLink(m.mensaje)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex h-full cursor-pointer items-center justify-between gap-4 rounded-2xl border border-line bg-white p-6 transition-colors duration-200 hover:border-brand hover:bg-brand-tint"
-              >
-                <span className="font-semibold text-ink">{m.label}</span>
-                <ArrowIcon className="h-5 w-5 shrink-0 text-brand-deep" />
-              </a>
-            </li>
+        <div className="mt-12 grid gap-10 lg:grid-cols-2">
+          {motivosContacto.map((grupo) => (
+            <div key={grupo.rama}>
+              <h3 className="eyebrow border-b-2 border-brand pb-3 text-center text-brand-deep md:text-left">
+                {grupo.rama}
+              </h3>
+              <ul className="mt-5 space-y-3">
+                {grupo.motivos.map((m) => (
+                  <li key={m.id}>
+                    <a
+                      href={waLink(m.mensaje)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex cursor-pointer items-center justify-between gap-4 rounded-2xl border border-line bg-white p-5 transition-colors duration-200 hover:border-brand hover:bg-brand-tint"
+                    >
+                      <span className="font-semibold text-ink">{m.label}</span>
+                      <ArrowIcon className="h-5 w-5 shrink-0 text-brand-deep transition-transform duration-200 group-hover:translate-x-1" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </Scroller>
+        </div>
       </Section>
 
       {/* Datos directos */}

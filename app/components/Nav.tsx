@@ -5,12 +5,16 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { nav, waLink } from "@/app/lib/content";
 import Monogram from "./Monogram";
-import { WhatsAppIcon } from "./Icons";
+import { ChevronDownIcon, WhatsAppIcon } from "./Icons";
 
 export default function Nav() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
+  /** Una rama queda activa también en sus subpáginas. */
+  const enRama = (href: string) =>
+    pathname === href || pathname.startsWith(`${href}/`);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -57,22 +61,54 @@ export default function Nav() {
           </span>
         </Link>
 
-        <ul className="hidden items-center gap-7 text-sm lg:flex">
+        <ul className="hidden items-center gap-8 text-sm font-semibold lg:flex">
           {nav.map((item) => {
-            const active = pathname === item.href;
+            const active = enRama(item.href);
             return (
-              <li key={item.href}>
+              <li key={item.href} className="group relative">
                 <Link
                   href={item.href}
-                  aria-current={active ? "page" : undefined}
-                  className={`cursor-pointer transition-colors duration-200 ${
+                  aria-current={pathname === item.href ? "page" : undefined}
+                  className={`inline-flex cursor-pointer items-center gap-1 py-2 transition-colors duration-200 ${
                     active
                       ? "text-brand-deep"
                       : "text-ink-3 hover:text-brand-deep"
                   }`}
                 >
                   {item.label}
+                  {item.sub ? (
+                    <ChevronDownIcon
+                      aria-hidden="true"
+                      className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180"
+                    />
+                  ) : null}
                 </Link>
+
+                {/* Submenú: se abre al pasar el ratón o al llegar con Tab.
+                    `invisible` lo saca también del orden de tabulación
+                    mientras está cerrado. */}
+                {item.sub ? (
+                  <div className="invisible absolute left-1/2 top-full z-40 -translate-x-1/2 pt-3 opacity-0 transition-opacity duration-200 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+                    <ul className="w-80 rounded-2xl border border-line bg-white p-2 shadow-xl shadow-ink/10">
+                      {item.sub.map((s) => (
+                        <li key={s.href}>
+                          <Link
+                            href={s.href}
+                            aria-current={pathname === s.href ? "page" : undefined}
+                            className="block cursor-pointer rounded-xl px-4 py-3 transition-colors duration-200 hover:bg-brand-tint"
+                          >
+                            <span className="block font-semibold text-ink">
+                              {s.label}
+                            </span>
+                            <span className="mt-0.5 block text-xs font-normal text-ink-3">
+                              {s.resumen}
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
               </li>
             );
           })}
@@ -119,7 +155,7 @@ export default function Nav() {
       <div
         id="menu-movil"
         className={`overflow-hidden transition-[max-height] duration-300 lg:hidden ${
-          open ? "max-h-[28rem]" : "max-h-0"
+          open ? "max-h-[40rem]" : "max-h-0"
         }`}
       >
         <ul className="flex flex-col gap-1 px-5 pb-6 pt-1">
@@ -128,10 +164,33 @@ export default function Nav() {
               <Link
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="display block cursor-pointer rounded-xl px-3 py-3 text-2xl text-ink transition-colors duration-200 hover:bg-brand-tint"
+                aria-current={pathname === item.href ? "page" : undefined}
+                className={`display block cursor-pointer rounded-xl px-3 py-3 text-2xl transition-colors duration-200 hover:bg-brand-tint ${
+                  enRama(item.href) ? "text-brand-deep" : "text-ink"
+                }`}
               >
                 {item.label}
               </Link>
+
+              {/* En móvil las subcategorías se ven siempre: no hay hover. */}
+              {item.sub ? (
+                <ul className="mb-2 ml-3 border-l-2 border-brand-tint pl-3">
+                  {item.sub.map((s) => (
+                    <li key={s.href}>
+                      <Link
+                        href={s.href}
+                        onClick={() => setOpen(false)}
+                        aria-current={pathname === s.href ? "page" : undefined}
+                        className={`block cursor-pointer rounded-xl px-3 py-2.5 text-base font-semibold transition-colors duration-200 hover:bg-brand-tint ${
+                          pathname === s.href ? "text-brand-deep" : "text-ink-3"
+                        }`}
+                      >
+                        {s.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
             </li>
           ))}
           <li className="mt-3">

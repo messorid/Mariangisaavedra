@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     template: `%s · ${site.name}`,
   },
   description:
-    "Host de eventos, locutora e imagen de marcas en Venezuela. Formación en oratoria y comunicación para empresas y equipos. 13 años de trayectoria.",
+    "Publicidad para marcas y capacitaciones en oratoria en Venezuela: personalizadas, In Company y conferencias. Host, locutora e imagen de marcas con 13 años de trayectoria.",
   keywords: [
     "Mariangi Saavedra",
     "host de eventos Venezuela",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: `${site.name} — ${site.tagline}`,
     description:
-      "Voz e imagen para marcas · Formación en oratoria y desarrollo humano. Venezuela.",
+      "Publicidad para tu marca · Capacitaciones en oratoria y comunicación. Venezuela.",
   },
   robots: { index: true, follow: true },
 };

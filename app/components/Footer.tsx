@@ -1,15 +1,10 @@
 import Link from "next/link";
 import { nav, site, waLink } from "@/app/lib/content";
-import Monogram from "./Monogram";
 import { InstagramIcon, MailIcon, PhoneIcon, WhatsAppIcon } from "./Icons";
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-ink text-white">
-      <Monogram
-        className="pointer-events-none absolute -right-10 -top-16 h-[380px] w-auto text-white/[0.04]"
-        strokeWidth={14}
-      />
+    <footer className="fondo fondo-oscuro relative overflow-hidden bg-ink text-white">
 
       <div className="relative mx-auto max-w-7xl px-5 py-16 md:px-10 md:py-20">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
@@ -40,10 +35,24 @@ export default function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="cursor-pointer text-white/75 transition-colors duration-200 hover:text-brand-soft"
+                    className="cursor-pointer font-semibold text-white/85 transition-colors duration-200 hover:text-brand-soft"
                   >
                     {item.label}
                   </Link>
+                  {item.sub ? (
+                    <ul className="mt-2.5 space-y-2 border-l border-white/15 pl-4">
+                      {item.sub.map((s) => (
+                        <li key={s.href}>
+                          <Link
+                            href={s.href}
+                            className="cursor-pointer text-white/70 transition-colors duration-200 hover:text-brand-soft"
+                          >
+                            {s.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
                 </li>
               ))}
             </ul>

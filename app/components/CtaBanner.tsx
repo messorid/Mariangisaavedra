@@ -1,5 +1,4 @@
 import { waLink } from "@/app/lib/content";
-import Monogram from "./Monogram";
 import { WhatsAppIcon } from "./Icons";
 
 /** Banner de cierre reutilizable al final de cada página. */
@@ -15,11 +14,9 @@ export default function CtaBanner({
   cta?: string;
 }) {
   return (
-    <section className="relative overflow-hidden bg-brand-deep text-white">
-      <Monogram
-        className="pointer-events-none absolute -left-14 -top-20 h-[420px] w-auto text-white/10"
-        strokeWidth={14}
-      />
+    // Fondo de ondas malva; sustituye al monograma de marca de agua, que
+    // encima de las ondas recargaba la composición.
+    <section className="fondo fondo-malva relative overflow-hidden bg-brand-deep text-white">
       <div className="relative mx-auto max-w-7xl px-5 py-20 text-center md:px-10 md:py-24">
         <h2 className="display mx-auto max-w-3xl text-4xl md:text-6xl">
           {titulo}

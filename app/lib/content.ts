@@ -2,9 +2,14 @@
  * Contenido centralizado del sitio.
  *
  * FUENTES (todo lo de aquí sale de documentos reales, nada inventado):
- *  - public/MEDIA KIT MS 2026 .pdf      → faceta "Marca personal"
+ *  - public/MEDIA KIT MS 2026 .pdf      → rama "Publicidad"
  *  - public/VISUAL CURRICULUM.pdf       → trayectoria y formación
- *  - public/WEB Mariangisaavedra.com.docx → arquitectura de las dos facetas
+ *  - public/WEB Mariangisaavedra.com.docx → arquitectura de las dos ramas
+ *
+ * ARQUITECTURA: el sitio tiene dos ramas y nada más.
+ *  - Publicidad      → /publicidad
+ *  - Capacitaciones  → /capacitaciones, dividida en tres subpáginas que no se
+ *    solapan: Personalizadas (destacada), In Company y grupales, Conferencias.
  *
  * Los campos marcados con TODO necesitan confirmación de Mariangi.
  */
@@ -58,50 +63,97 @@ export const fotos = {
 
 /* ──────────────────────────────  Navegación  ─────────────────────────── */
 
-export const nav = [
-  { label: "Para tu marca", href: "/marcas" },
-  { label: "Formación", href: "/formacion" },
+/**
+ * Las tres subcategorías de Capacitaciones. Alimentan el menú, la portada,
+ * la página de Capacitaciones y las pestañas de cada subpágina, así que el
+ * orden y los nombres se cambian solo aquí.
+ *
+ * Personalizadas va primero y `destacada`: es el servicio que más interesa
+ * mostrar desde la entrada de la sección.
+ */
+export type RamaCapacitacion = {
+  slug: "personalizadas" | "in-company" | "conferencias";
+  href: string;
+  nombre: string;
+  para: string;
+  resumen: string;
+  destacada?: boolean;
+};
+
+export const ramasCapacitacion: RamaCapacitacion[] = [
+  {
+    slug: "personalizadas",
+    href: "/capacitaciones/personalizadas",
+    nombre: "Personalizadas",
+    para: "Para ti",
+    resumen: "Uno a uno conmigo, con un plan hecho a tu medida.",
+    destacada: true,
+  },
+  {
+    slug: "in-company",
+    href: "/capacitaciones/in-company",
+    nombre: "In Company y grupales",
+    para: "Para empresas y grupos",
+    resumen: "Programas para tu equipo, grupos reducidos y talleres abiertos.",
+  },
+  {
+    slug: "conferencias",
+    href: "/capacitaciones/conferencias",
+    nombre: "Conferencias",
+    para: "Para eventos",
+    resumen: "Charlas para eventos corporativos, institucionales y abiertos.",
+  },
+];
+
+type NavItem = {
+  label: string;
+  href: string;
+  sub?: { label: string; href: string; resumen: string }[];
+};
+
+export const nav: NavItem[] = [
+  { label: "Publicidad", href: "/publicidad" },
+  {
+    label: "Capacitaciones",
+    href: "/capacitaciones",
+    sub: ramasCapacitacion.map((r) => ({
+      label: r.nombre,
+      href: r.href,
+      resumen: r.resumen,
+    })),
+  },
   { label: "Sobre mí", href: "/sobre-mi" },
-  { label: "Trabajos", href: "/trabajos" },
   { label: "Contacto", href: "/contacto" },
 ];
 
-/* ────────────────────  Las dos facetas (núcleo del sitio)  ───────────── */
+/* ─────────────────────  Las dos ramas (núcleo del sitio)  ───────────── */
 
-export const facetas = [
-  {
-    slug: "marcas",
-    href: "/marcas",
+export const ramas = {
+  publicidad: {
+    href: "/publicidad",
     numero: "01",
-    kicker: "Para empresas y marcas",
-    titulo: "Marca personal",
-    subtitulo: "Voz e imagen que tu marca necesita",
+    para: "Para empresas y marcas",
+    titulo: "Publicidad",
+    subtitulo: "Mi voz y mi imagen al servicio de tu marca",
     texto:
       "Como Voz e Imagen de Marcas me convierto en el rostro y el sonido que transmite confianza, profesionalismo y cercanía a tu público objetivo.",
-    bullets: [
-      "Campañas e imagen de marca",
-      "Host y maestra de ceremonias",
-      "Locución comercial y radio",
+    puntos: [
+      "Campañas en redes: reels y stories",
+      "Locución y voz comercial",
+      "Host de eventos",
     ],
-    cta: "Ver planes y métricas",
+    cta: "Ver planes de publicidad",
   },
-  {
-    slug: "formacion",
-    href: "/formacion",
+  capacitaciones: {
+    href: "/capacitaciones",
     numero: "02",
-    kicker: "Para equipos y personas",
-    titulo: "Oratoria y formación",
-    subtitulo: "Comunicación que transforma resultados",
-    texto:
-      "Fusiono técnicas de locución con herramientas de Coaching y Programación Neurolingüística para desarrollar mensajes de alto impacto en el ámbito corporativo.",
-    bullets: [
-      "Programas de oratoria",
-      "Conferencias y charlas",
-      "Formación corporativa in-company",
-    ],
-    cta: "Ver programas",
+    para: "Para personas, equipos y eventos",
+    titulo: "Capacitaciones",
+    subtitulo: "Oratoria y comunicación que transforma resultados",
+    texto: "Elige el tipo de capacitación que buscas:",
+    cta: "Ver capacitaciones",
   },
-];
+};
 
 /* ──────────────────────  Manifiesto / ¿Quién soy?  ───────────────────── */
 
@@ -109,11 +161,9 @@ export const manifiesto = {
   eyebrow: "¿Quién soy?",
   destacado:
     "Creo firmemente en el poder de la comunicación y en la capacidad de un mensaje que, entregado con criterio y convicción, puede transformar cualquier circunstancia.",
-  parrafos: [
+  /** En la portada va un solo párrafo: el resto de la historia está en /sobre-mi. */
+  texto:
     "Soy Mariangi Saavedra, profesional de la Voz, una Comunicadora apasionada. Mi misión es sencilla: motivar, enseñar y compartir mi admiración por el arte de comunicarnos, brindando herramientas que fortalecen las conexiones en todos los ámbitos.",
-    "Estoy convencida de que podemos transformar el mundo desde nuestro metro cuadrado, haciendo uso de nuestra voz y presencia para dejar huella.",
-    "Esta convicción no solo guía mis talleres de oratoria, donde mis clientes logran resultados impactantes, sino que es la misma energía auténtica que inyecto en cada proyecto de marca.",
-  ],
 };
 
 /* ────────────────────────  Credibilidad (home)  ──────────────────────── */
@@ -125,31 +175,7 @@ export const credenciales = [
   { valor: "14,68", sufijo: "%", label: "Tasa de interacción" },
 ];
 
-/* ────────────────────  FACETA 1 · Valor para la marca  ───────────────── */
-
-export const valorParaMarca = {
-  eyebrow: "Versatilidad y conexión genuina",
-  titulo: "Mi valor para tu marca",
-  intro:
-    "Mi trayectoria como Locutora, Presentadora de Eventos y Coach de Oratoria me ha brindado una voz y presencia versátiles, capaces de resonar con audiencias diversas.",
-  pilares: [
-    {
-      titulo: "Crear un impacto memorable",
-      texto:
-        "Como Voz e Imagen de Marcas me convierto en el rostro y el sonido que transmite confianza, profesionalismo y cercanía a tu público objetivo.",
-    },
-    {
-      titulo: "Aportar credibilidad",
-      texto:
-        "Mi experiencia como conferencista y profesora respalda mi habilidad para comunicar mensajes complejos de forma clara y persuasiva.",
-    },
-    {
-      titulo: "Garantizar resultados",
-      texto:
-        "La misma pasión que me permite sentirme en propósito con los logros de mis clientes, la dedico a asegurar que tu campaña alcance sus metas.",
-    },
-  ],
-};
+/* ──────────────────────────  RAMA 1 · Publicidad  ────────────────────── */
 
 /* ────────────────────────  Reels destacados  ─────────────────────────── */
 /** URLs reales extraídas de los hipervínculos de los PDF. */
@@ -203,25 +229,36 @@ export const planes = [
   },
 ];
 
-export const serviciosSueltos = {
-  titulo: "También puedes cotizar por separado",
-  items: ["Stories", "Voice Over", "Host de Eventos"],
-};
-
-export const otrosServicios = [
+/**
+ * Servicios que se cotizan sin contratar un plan. Unifica lo que el media kit
+ * separaba en "cotizar por separado" y "otros servicios". La "Formación PRO"
+ * del media kit ya no va aquí: vive en la rama Capacitaciones.
+ *
+ * Los textos de Voice Over y Stories son BORRADOR (el media kit solo da el
+ * nombre del servicio). Validar con Mariangi.
+ */
+export const serviciosPublicidad = [
   {
-    titulo: "Host de Eventos",
+    titulo: "Host de eventos",
     texto: "Conducción profesional para eventos corporativos y especiales.",
+    mensaje:
+      "¡Hola Mariangi! Quiero consultar tu disponibilidad como host para un evento.",
   },
   {
-    titulo: "Formación PRO",
-    texto:
-      "Eleva tu liderazgo con mentorías de Oratoria (personalizada, grupal o gerencial).",
+    titulo: "Voice Over",
+    texto: "Voz comercial para cuñas de radio, videos y comerciales de tu marca.",
+    mensaje: "¡Hola Mariangi! Necesito una cotización de Voice Over / locución.",
+  },
+  {
+    titulo: "Stories",
+    texto: "Difusión puntual de tu marca en mis historias de Instagram.",
+    mensaje: "¡Hola Mariangi! Quiero cotizar difusión en tus Stories.",
   },
   {
     titulo: "Alcance 360",
     texto:
       "Publicidad de alto impacto en Radio, Pantallas LED y Locución profesional.",
+    mensaje: "¡Hola Mariangi! Me interesa el servicio Alcance 360.",
   },
 ];
 
@@ -232,25 +269,60 @@ export const testimonio = {
   cargo: "CEO, Mundo Plast",
 };
 
-/* ─────────────────────  FACETA 2 · Oratoria y formación  ─────────────── */
+/* ───────────────────────  RAMA 2 · Capacitaciones  ───────────────────── */
 
-/* ───────────  FACETA 2 · Producto VIP: Oratoria Personalizada  ───────── */
+/* ─────────────  2.1 · Personalizadas (producto VIP, uno a uno)  ──────── */
 
 /**
- * Producto insignia: acompañamiento uno a uno en tres niveles.
+ * Producto insignia y subpágina destacada: /capacitaciones/personalizadas.
+ * Todo lo de aquí es SOLO uno a uno; nada de grupos, para que no se mezcle
+ * con /capacitaciones/in-company.
  *
  * Los TRES PASOS del proceso son los que indicó Mariangi, textuales.
- * El desarrollo de los TRES NIVELES es BORRADOR: ella dio los nombres
- * ("Nivel 1/2/3") pero no el contenido de cada uno. Debe validarlo antes de
- * publicar — ver `nivelesBorrador`.
+ * BORRADOR pendiente de validación:
+ *  - el contenido de los tres niveles (ella dio solo "Nivel 1/2/3"),
+ *  - la descripción de las dos formas (ella dio solo los nombres),
+ *  - paraQuien / incluye / ideal.
  */
 export const vip = {
-  eyebrow: "Producto VIP",
-  titulo: "Oratoria Personalizada",
-  destacado: "VIP",
+  eyebrow: "VIP · Uno a uno",
+  titulo: "Capacitación",
+  destacado: "personalizada",
   lead: "Acompañamiento uno a uno, diseñado sobre tu punto de partida real y no sobre un programa genérico.",
   texto:
-    "Es el formato más exclusivo que ofrezco: agenda cerrada, plan hecho a tu medida y seguimiento directo conmigo. Se estructura en tres niveles que puedes recorrer de forma progresiva o empezar donde estés.",
+    "Es el formato más exclusivo que ofrezco: agenda cerrada, plan hecho a tu medida y seguimiento directo conmigo.",
+  mensaje:
+    "¡Hola Mariangi! Me interesa la capacitación personalizada VIP. ¿Agendamos la reunión exploratoria?",
+
+  paraQuien:
+    "Profesionales y directivos que necesitan resultados concretos en poco tiempo, y quien prefiere trabajar sus bloqueos en privado.",
+
+  /** Las dos variantes que nombró Mariangi. Descripción: BORRADOR. */
+  formas: [
+    {
+      nombre: "Oratoria Express",
+      texto:
+        "Para preparar algo concreto y cercano: una presentación, una entrevista o un discurso.",
+    },
+    {
+      nombre: "Oratoria con acompañamiento",
+      texto:
+        "Un proceso completo por niveles, con seguimiento directo entre sesión y sesión.",
+    },
+  ],
+
+  incluye: [
+    "Diagnóstico inicial de tu comunicación",
+    "Plan de trabajo a tu medida",
+    "Ejercicios prácticos entre sesiones",
+    "Retroalimentación grabada de tus intervenciones",
+  ],
+
+  ideal: [
+    "Preparar una ponencia o presentación concreta",
+    "Ganar presencia para un nuevo cargo",
+    "Superar el miedo escénico sin exponerte ante un grupo",
+  ],
 
   /** Indicado por Mariangi, textual. */
   proceso: [
@@ -274,8 +346,6 @@ export const vip = {
     },
   ],
 
-  /** BORRADOR pendiente de validación de Mariangi. */
-  nivelesBorrador: true,
   niveles: [
     {
       n: "Nivel 1",
@@ -316,162 +386,74 @@ export const vip = {
   ],
 };
 
-/**
- * Modalidades: el CÓMO se dicta. Cada una tiene página propia en
- * /formacion/modalidad/[slug].
- *
- * Los nombres, el resumen y las variantes salen del documento de Mariangi.
- * El desarrollo de cada ficha (lead, para quién, cómo funciona, qué incluye)
- * es BORRADOR redactado a partir de su metodología. Debe validarlo antes de
- * publicar — ver `borrador` en cada ficha.
- */
-export type Modalidad = {
-  slug: string;
-  nombre: string;
-  /** Título para <title> y buscadores: el nombre suelto no se lee bien. */
-  tituloSeo: string;
-  texto: string;
-  variantes: string[];
-  /** La Personalizada es la puerta de entrada al producto VIP. */
-  destacada?: boolean;
-  lead: string;
-  paraQuien: string;
-  comoFunciona: string[];
-  incluye: string[];
-  ideal: string[];
-  borrador: boolean;
-};
+/* ─────────────────────  2.2 · In Company y grupales  ─────────────────── */
 
-export const modalidades: Modalidad[] = [
+/**
+ * Formatos de /capacitaciones/in-company. Salen de las modalidades del
+ * documento de Mariangi (Empresarial, Semi-personalizada y Grupal abierto);
+ * la Personalizada NO está aquí: tiene su propia subpágina.
+ *
+ * El desarrollo de cada formato es BORRADOR a validar.
+ */
+export const formatosGrupales = [
   {
-    slug: "personalizada",
-    nombre: "Personalizada",
-    tituloSeo: "Oratoria personalizada uno a uno",
-    texto: "Uno a uno. Disponible como Oratoria Express o con acompañamiento.",
-    variantes: ["Oratoria Express", "Oratoria con acompañamiento"],
-    destacada: true,
-    lead: "Uno a uno, agenda cerrada y un plan construido sobre tu punto de partida real.",
-    paraQuien:
-      "Profesionales y directivos que necesitan resultados concretos en poco tiempo, y quien prefiere trabajar sus bloqueos en privado.",
-    comoFunciona: [
-      "Sesiones individuales, solo tú y yo",
-      "El plan se arma después del diagnóstico, no antes",
-      "Ritmo y horarios ajustados a tu agenda",
-      "Seguimiento directo entre sesión y sesión",
+    id: "empresas",
+    nombre: "In Company",
+    etiqueta: "Para empresas",
+    lead: "Programas diseñados sobre lo que le pasa de verdad a tu equipo, en tus instalaciones o en remoto.",
+    puntos: [
+      "Diagnóstico previo del equipo",
+      "Programa diseñado a la medida",
+      "Sesiones presenciales o remotas",
+      "Informe de cierre con resultados",
     ],
-    incluye: [
-      "Diagnóstico inicial de tu comunicación",
-      "Plan de trabajo a tu medida",
-      "Ejercicios prácticos entre sesiones",
-      "Retroalimentación grabada de tus intervenciones",
-    ],
-    ideal: [
-      "Preparar una ponencia o presentación concreta",
-      "Ganar presencia para un nuevo cargo",
-      "Superar el miedo escénico sin exponerte ante un grupo",
-    ],
-    borrador: true,
+    cta: "Solicitar propuesta",
+    mensaje:
+      "¡Hola Mariangi! Quiero información sobre capacitación In Company para mi empresa.",
   },
   {
-    slug: "semi-personalizada",
-    nombre: "Semi-personalizada",
-    tituloSeo: "Oratoria en grupos de tres",
-    texto: "Grupos reducidos de 3 participantes.",
-    variantes: [],
+    id: "grupo-reducido",
+    nombre: "Grupo reducido",
+    etiqueta: "Semi-personalizada · 3 personas",
     lead: "Grupos de tres: atención cercana y el empuje de practicar con otros.",
-    paraQuien:
-      "Quien quiere el detalle del acompañamiento individual pero prefiere aprender viendo a otros y recibir su mirada.",
-    comoFunciona: [
-      "Máximo tres participantes por grupo",
+    puntos: [
+      "Máximo tres participantes",
       "Cada quien trabaja su propio caso",
       "Práctica cruzada: hablas y también escuchas",
       "Retroalimentación mía y de tus compañeros",
     ],
-    incluye: [
-      "Diagnóstico individual dentro del grupo",
-      "Ejercicios de práctica en vivo",
-      "Retroalimentación estructurada",
-      "Material de apoyo",
-    ],
-    ideal: [
-      "Practicar ante público sin exponerte a una sala llena",
-      "Compartir la inversión sin perder cercanía",
-      "Aprender también de los errores ajenos",
-    ],
-    borrador: true,
+    cta: "Consultar grupo reducido",
+    mensaje:
+      "¡Hola Mariangi! Me interesa la capacitación en grupo reducido (3 personas).",
   },
   {
-    slug: "grupal-abierto",
-    nombre: "Grupal abierto",
-    tituloSeo: "Talleres de oratoria en grupo abierto",
-    texto: "Talleres abiertos con inscripción individual.",
-    variantes: [],
+    id: "taller-abierto",
+    nombre: "Taller abierto",
+    etiqueta: "Inscripción individual",
     lead: "Talleres con inscripción individual: la forma más accesible de empezar.",
-    paraQuien:
-      "Quien quiere dar el primer paso en oratoria sin comprometerse a un programa largo, y quien aprende mejor en grupo.",
-    comoFunciona: [
-      "Fechas abiertas anunciadas con antelación",
+    puntos: [
+      "Fechas anunciadas con antelación",
       "Te inscribes por tu cuenta, sin necesidad de grupo",
-      "Formato taller: se practica desde el primer día",
-      "Grupos con perfiles variados",
-    ],
-    incluye: [
-      "Sesión práctica de oratoria",
-      "Ejercicios de voz, postura y estructura",
-      "Material de apoyo",
+      "Se practica desde el primer día",
       "Certificado de participación",
     ],
-    ideal: [
-      "Probar la metodología antes de un programa mayor",
-      "Perder el miedo a hablar delante de desconocidos",
-      "Empezar con una inversión contenida",
-    ],
-    borrador: true,
-  },
-  {
-    slug: "empresarial",
-    nombre: "Empresarial / Corporativo",
-    tituloSeo: "Oratoria empresarial e in-company",
-    texto: "Programas in-company diseñados a la medida de la organización.",
-    variantes: [],
-    lead: "Programas in-company diseñados sobre lo que le pasa de verdad a tu equipo.",
-    paraQuien:
-      "Empresas e instituciones que necesitan mejorar la comunicación de un área concreta o de toda la organización.",
-    comoFunciona: [
-      "Reunión exploratoria con la empresa",
-      "Diagnóstico de las debilidades del equipo",
-      "Propuesta de capacitación a la medida",
-      "Ejecución in-company, en tus instalaciones o en remoto",
-    ],
-    incluye: [
-      "Diagnóstico previo del equipo",
-      "Programa diseñado a la medida",
-      "Sesiones presenciales o remotas",
-      "Informe de cierre con resultados y recomendaciones",
-    ],
-    ideal: [
-      "Equipos comerciales que necesitan cerrar mejor",
-      "Áreas de atención al cliente y call center",
-      "Programas de liderazgo y habilidades blandas",
-    ],
-    borrador: true,
+    cta: "Ver próximas fechas",
+    mensaje:
+      "¡Hola Mariangi! ¿Cuándo es el próximo taller abierto de oratoria?",
   },
 ];
 
-export const getModalidad = (slug: string) =>
-  modalidades.find((m) => m.slug === slug);
-
-
 /**
- * Categorías de oratoria. Cada una tiene su propia página en /formacion/[slug].
+ * Temas de capacitación para empresas y grupos. Cada uno tiene su propia
+ * página en /capacitaciones/in-company/[slug].
  *
- * Los nombres de las 7 categorías salen textualmente del documento de Mariangi.
+ * Los nombres de los 7 temas salen textualmente del documento de Mariangi.
  * El desarrollo de cada ficha (objetivo, beneficios, contenidos, resultados) es
  * un BORRADOR redactado a partir de su metodología (Locución + Coaching + PNL)
  * y de la estructura de "Portafolio comercial" que pide su propio documento.
  * Debe validarlo antes de publicar: ver `borrador` en cada ficha.
  */
-export type CategoriaOratoria = {
+export type Tema = {
   slug: string;
   nombre: string;
   texto: string;
@@ -484,7 +466,7 @@ export type CategoriaOratoria = {
   borrador: boolean;
 };
 
-export const categoriasOratoria: CategoriaOratoria[] = [
+export const temas: Tema[] = [
   {
     slug: "oratoria-gerencial",
     nombre: "Oratoria Gerencial",
@@ -691,8 +673,10 @@ export const categoriasOratoria: CategoriaOratoria[] = [
   },
 ];
 
-export const getCategoria = (slug: string) =>
-  categoriasOratoria.find((c) => c.slug === slug);
+export const getTema = (slug: string) =>
+  temas.find((t) => t.slug === slug);
+
+/* ─────────────────────────  2.3 · Conferencias  ──────────────────────── */
 
 /**
  * TODO: el documento de Mariangi indica 10 conferencias.
@@ -927,42 +911,54 @@ export const contactoIntro = {
     "Cuéntame qué necesitas y te respondo con una propuesta concreta. Trabajo en toda Venezuela, presencial y remoto.",
 };
 
-/** Cada motivo precarga un mensaje distinto en WhatsApp. */
+/**
+ * Cada motivo precarga un mensaje distinto en WhatsApp. Se agrupan por las
+ * dos ramas del sitio para que el visitante encuentre el suyo de un vistazo.
+ */
 export const motivosContacto = [
   {
-    id: "campana",
-    label: "Campaña o imagen de marca",
-    mensaje:
-      "¡Hola Mariangi! Quiero información sobre tus planes de imagen de marca.",
+    rama: "Publicidad",
+    motivos: [
+      {
+        id: "campana",
+        label: "Campaña o plan de publicidad",
+        mensaje:
+          "¡Hola Mariangi! Quiero información sobre tus planes de publicidad.",
+      },
+      {
+        id: "evento",
+        label: "Host para un evento",
+        mensaje:
+          "¡Hola Mariangi! Quiero consultar tu disponibilidad como host para un evento.",
+      },
+      {
+        id: "locucion",
+        label: "Locución o voz comercial",
+        mensaje:
+          "¡Hola Mariangi! Necesito una cotización de locución comercial.",
+      },
+    ],
   },
   {
-    id: "evento",
-    label: "Host para un evento",
-    mensaje:
-      "¡Hola Mariangi! Quiero consultar tu disponibilidad como host para un evento.",
-  },
-  {
-    id: "locucion",
-    label: "Locución o voz comercial",
-    mensaje:
-      "¡Hola Mariangi! Necesito una cotización de locución comercial.",
-  },
-  {
-    id: "oratoria",
-    label: "Programa de oratoria",
-    mensaje:
-      "¡Hola Mariangi! Me interesa un programa de oratoria. ¿Me cuentas las modalidades?",
-  },
-  {
-    id: "corporativo",
-    label: "Formación para mi empresa",
-    mensaje:
-      "¡Hola Mariangi! Quiero información sobre formación corporativa in-company.",
-  },
-  {
-    id: "conferencia",
-    label: "Conferencia",
-    mensaje:
-      "¡Hola Mariangi! Quiero invitarte como conferencista a un evento.",
+    rama: "Capacitaciones",
+    motivos: [
+      {
+        id: "personalizada",
+        label: "Capacitación personalizada",
+        mensaje: vip.mensaje,
+      },
+      {
+        id: "in-company",
+        label: "Capacitación para mi empresa o grupo",
+        mensaje:
+          "¡Hola Mariangi! Quiero información sobre capacitación In Company o grupal.",
+      },
+      {
+        id: "conferencia",
+        label: "Conferencia para un evento",
+        mensaje:
+          "¡Hola Mariangi! Quiero invitarte como conferencista a un evento.",
+      },
+    ],
   },
 ];

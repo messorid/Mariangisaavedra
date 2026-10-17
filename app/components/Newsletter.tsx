@@ -3,7 +3,6 @@
 import { useActionState, useId } from "react";
 import { suscribir, type EstadoBoletin } from "@/app/actions/newsletter";
 import { newsletter } from "@/app/lib/content";
-import Monogram from "./Monogram";
 import { ArrowIcon, CheckIcon, MailIcon } from "./Icons";
 
 const inicial: EstadoBoletin = { status: "idle", message: "" };
@@ -14,11 +13,7 @@ export default function Newsletter() {
   const idNombre = useId();
 
   return (
-    <section className="relative overflow-hidden bg-brand-tint">
-      <Monogram
-        className="pointer-events-none absolute -right-14 -top-16 h-[360px] w-auto text-brand/[0.08]"
-        strokeWidth={14}
-      />
+    <section className="fondo fondo-lavanda relative overflow-hidden bg-brand-tint">
 
       <div className="relative mx-auto max-w-7xl px-5 py-16 md:px-10 md:py-20">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-16">

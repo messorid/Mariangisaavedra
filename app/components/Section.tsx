@@ -6,11 +6,14 @@ export default function Section({
   id,
   className = "",
   tone = "paper",
+  fondo = true,
 }: {
   children: ReactNode;
   id?: string;
   className?: string;
   tone?: "paper" | "tint" | "ink" | "brand";
+  /** Imagen de fondo del tono (ver `.fondo-*` en globals.css). */
+  fondo?: boolean;
 }) {
   const tones = {
     paper: "bg-paper text-ink",
@@ -19,10 +22,17 @@ export default function Section({
     brand: "bg-brand-deep text-white",
   };
 
+  const fondos = {
+    paper: "fondo fondo-papel",
+    tint: "fondo fondo-lavanda",
+    ink: "fondo fondo-oscuro",
+    brand: "fondo fondo-malva",
+  };
+
   return (
     <section
       id={id}
-      className={`relative overflow-hidden ${tones[tone]} ${className}`}
+      className={`relative overflow-hidden ${tones[tone]} ${fondo ? fondos[tone] : ""} ${className}`}
     >
       <div className="mx-auto max-w-7xl px-5 py-20 md:px-10 md:py-28">
         {children}

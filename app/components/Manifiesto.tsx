@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { credenciales, fotos, manifiesto } from "@/app/lib/content";
+import { ArrowIcon } from "./Icons";
 import Monogram from "./Monogram";
 import Portrait from "./Portrait";
 import Section, { Eyebrow } from "./Section";
@@ -31,13 +33,17 @@ export default function Manifiesto() {
             {manifiesto.destacado}
           </blockquote>
 
-          <div className="mt-8 space-y-5 text-ink-3">
-            {manifiesto.parrafos.map((p) => (
-              <p key={p.slice(0, 40)} className="mx-auto max-w-[65ch] lg:mx-0">
-                {p}
-              </p>
-            ))}
-          </div>
+          <p className="mx-auto mt-8 max-w-[65ch] text-ink-3 lg:mx-0">
+            {manifiesto.texto}
+          </p>
+
+          <Link
+            href="/sobre-mi"
+            className="mt-6 inline-flex cursor-pointer items-center gap-2 text-sm font-semibold text-brand-deep underline underline-offset-4 transition-colors duration-200 hover:text-ink"
+          >
+            Conoce mi trayectoria
+            <ArrowIcon className="h-[18px] w-[18px]" />
+          </Link>
 
           <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-line pt-10 md:grid-cols-4">
             {credenciales.map((c) => (

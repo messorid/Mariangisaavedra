@@ -47,3 +47,7 @@ next-env.d.ts
 # originales de fotografia (4000x6000, ~5 MB c/u).
 # Las versiones optimizadas a 2000px SI se versionan: public/images/mariangi-*.jpg
 /public/images/DSC_*
+
+# Fondos: los PNG originales generados (~2 MB c/u) no se versionan;
+# el sitio usa las versiones WebP optimizadas de la misma carpeta.
+/public/images/fondos/*.png
