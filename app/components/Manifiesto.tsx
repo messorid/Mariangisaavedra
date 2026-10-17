@@ -10,7 +10,6 @@ export default function Manifiesto() {
     <Section>
       <Monogram
         className="pointer-events-none absolute -right-20 top-10 h-[500px] w-auto text-brand/[0.05]"
-        strokeWidth={14}
       />
 
       <div className="relative grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-16">

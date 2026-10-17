@@ -46,7 +46,6 @@ export default async function TemaPage({
       <section className="relative overflow-hidden bg-ink pt-20 text-white">
         <Monogram
           className="pointer-events-none absolute -right-16 top-0 h-[440px] w-auto text-white/[0.06]"
-          strokeWidth={14}
         />
         <div className="relative mx-auto max-w-7xl px-5 py-14 text-center md:px-10 md:py-20 md:text-left">
           <nav aria-label="Ruta de navegación" className="text-sm">

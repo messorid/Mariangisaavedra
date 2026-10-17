@@ -32,7 +32,6 @@ export default function PageHero({
       ) : (
         <Monogram
           className="pointer-events-none absolute -left-16 top-0 -z-10 h-[480px] w-auto text-white/[0.06]"
-          strokeWidth={14}
         />
       )}
 

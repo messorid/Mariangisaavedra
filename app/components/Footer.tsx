@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { nav, site, waLink } from "@/app/lib/content";
 import { InstagramIcon, MailIcon, PhoneIcon, WhatsAppIcon } from "./Icons";
@@ -5,17 +6,26 @@ import { InstagramIcon, MailIcon, PhoneIcon, WhatsAppIcon } from "./Icons";
 export default function Footer() {
   return (
     <footer className="fondo fondo-oscuro relative overflow-hidden bg-ink text-white">
-
       <div className="relative mx-auto max-w-7xl px-5 py-16 md:px-10 md:py-20">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
             <p className="eyebrow text-brand-soft">¿Listos para conectar?</p>
-            <p className="display mt-3 text-4xl text-white md:text-5xl">
-              Mariangi
-              <br />
-              <span className="text-brand-soft">Saavedra</span>
+            {/* Logo oficial sin el eslogan: a este tamaño el del logo es
+                ilegible, así que va debajo como texto real. */}
+            <Image
+              src="/images/marca/logo-mariangi.png"
+              alt={site.name}
+              width={1200}
+              height={353}
+              sizes="320px"
+              className="mt-5 h-auto w-[280px] md:w-[320px]"
+            />
+            <p
+              className="mt-4 max-w-sm text-white/75"
+              style={{ fontFamily: "var(--font-accent)" }}
+            >
+              {site.tagline}
             </p>
-            <p className="mt-4 max-w-sm text-white/70">{site.tagline}</p>
 
             <a
               href={waLink()}

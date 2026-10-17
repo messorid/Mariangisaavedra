@@ -55,7 +55,7 @@ export default function Nav() {
           className="flex cursor-pointer items-center gap-2.5"
           aria-label="Mariangi Saavedra — Inicio"
         >
-          <Monogram className="h-8 w-auto text-brand-deep" strokeWidth={18} />
+          <Monogram className="h-8 w-auto text-brand-deep" />
           <span className="display text-base text-ink md:text-lg">
             Mariangi <span className="text-brand-deep">Saavedra</span>
           </span>
